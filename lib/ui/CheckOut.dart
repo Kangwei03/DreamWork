@@ -32,7 +32,9 @@ class _CheckOutState extends State<CheckOut> {
 
         ))
       ),
-      body: Container(),
+      body: Container(
+        child: Text('Checkout')
+      ),
     );
   }
 }
