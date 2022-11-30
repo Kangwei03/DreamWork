@@ -19,6 +19,7 @@ class _OrderState extends State<Order> {
   static const IconData shopping_cart =
       IconData(0xe59c, fontFamily: 'MaterialIcons');
 
+  //declare variable
   List<ProductResponse> ProductList = List.empty(growable: true);
 
   void initView() async {
@@ -27,6 +28,7 @@ class _OrderState extends State<Order> {
     ProductResponse productResponse = ProductResponse(1, DateTime(2022, 11, 23),
         DateTime(2022, 11, 24), "Apple", "image/url", 25, 1, 1, 1, 2.5);
     ProductList.add(productResponse);
+    //array list to store data
     ProductList.addAll([
       ProductResponse(1, DateTime(2022, 11, 23), DateTime(2022, 11, 24),
           "Apple", "image/url", 25, 1, 1, 1, 2.5),
