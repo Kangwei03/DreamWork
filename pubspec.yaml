@@ -41,8 +41,11 @@ dependencies:
   email_validator: ^2.1.16
   pinput: ^2.2.16
   quantity_input: ^1.0.2
+  http: ^0.13.4
 
 dev_dependencies:
+  build_runner: ^2.1.7
+  json_serializable: ^6.1.5
   flutter_test:
     sdk: flutter
 

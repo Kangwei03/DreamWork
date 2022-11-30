@@ -7,26 +7,23 @@ part of 'BodyMeasurementResponse.dart';
 // **************************************************************************
 
 BodyMeasurementResponse _$BodyMeasurementResponseFromJson(
-    Map<String, dynamic> json) {
-  //from json to object
-  return BodyMeasurementResponse(
-    json['id'] as int,
-    json['created_at'] as String,
-    json['weight'] as double,
-    json['height'] as double,
-    json['shoulder'] as double,
-    json['arm'] as double,
-    json['chest'] as double,
-    json['waist'] as double,
-    json['hip'] as double,
-    json['tight'] as double,
-    json['calf'] as double,
-  );
-}
+        Map<String, dynamic> json) =>
+    BodyMeasurementResponse(
+      json['id'] as int,
+      json['created_at'] as String,
+      (json['weight'] as num).toDouble(),
+      (json['height'] as num).toDouble(),
+      (json['shoulder'] as num).toDouble(),
+      (json['arm'] as num).toDouble(),
+      (json['chest'] as num).toDouble(),
+      (json['waist'] as num).toDouble(),
+      (json['hip'] as num).toDouble(),
+      (json['tight'] as num).toDouble(),
+      (json['calf'] as num).toDouble(),
+    );
 
-//from object to json
 Map<String, dynamic> _$BodyMeasurementResponseToJson(
-    BodyMeasurementResponse instance) =>
+        BodyMeasurementResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
       'created_at': instance.created_at,
