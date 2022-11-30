@@ -1,3 +1,5 @@
+import 'package:dreamwork/response/ProductResponse.dart';
+import 'package:dreamwork/response/ProductResponse.dart';
 import 'package:flutter/material.dart';
 import 'package:quantity_input/quantity_input.dart';
 
@@ -16,6 +18,27 @@ class _OrderState extends State<Order> {
 
   static const IconData shopping_cart =
       IconData(0xe59c, fontFamily: 'MaterialIcons');
+
+  List<ProductResponse> ProductList = List.empty(growable: true);
+
+  void initView() async {
+    //call api to retrieve user details
+    //get value and put into gender
+    ProductResponse productResponse = ProductResponse(1, DateTime(2022, 11, 23),
+        DateTime(2022, 11, 24), "Apple", "image/url", 25, 1, 1, 1, 2.5);
+    ProductList.add(productResponse);
+    ProductList.addAll([
+      ProductResponse(1, DateTime(2022, 11, 23), DateTime(2022, 11, 24),
+          "Apple", "image/url", 25, 1, 1, 1, 2.5),
+      ProductResponse(2, DateTime(2022, 11, 23), DateTime(2022, 11, 24),
+          "Hoodie", "image1/url", 25, 1, 2, 2, 15),
+      ProductResponse(3, DateTime(2022, 11, 23), DateTime(2022, 11, 24),
+          "Mouse", "image2/url", 25, 1, 3, 3, 8),
+      ProductResponse(4, DateTime(2022, 11, 23), DateTime(2022, 11, 24),
+          "Eraser", "image3/url", 25, 1, 3, 4, 1),
+
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {
