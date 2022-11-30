@@ -5,6 +5,7 @@ import 'package:dreamwork/ui/ForgotPassword.dart';
 import 'package:dreamwork/ui/HomePage.dart';
 import 'package:dreamwork/ui/Login.dart';
 import 'package:dreamwork/ui/Order.dart';
+import 'package:dreamwork/ui/Payment.dart';
 import 'package:dreamwork/ui/Register.dart';
 import 'package:dreamwork/ui/ResetPassword.dart';
 import 'package:dreamwork/ui/SplashScreen.dart';
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
     'deleteAccount': (context) => DeleteAccount(),
     'order' : (context) => Order(),
     'checkOut': (context) => CheckOut(),
+    'payment' : (context) => Payment(),
 
   };
 
