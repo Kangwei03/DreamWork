@@ -177,9 +177,9 @@ class _HomePageState extends State<HomePage> {
                             ),
                             child: TextButton(
                                 onPressed: () {
-                                  Navigator.pushNamed(context, "login");
+                                  Navigator.pushNamed(context, "reward");
                                 },
-                                child: Text("Top Up",
+                                child: Text("Rewards",
                                     style: TextStyle(
                                       color: Colors.black,
                                     )))),

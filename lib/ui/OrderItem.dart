@@ -4,7 +4,8 @@ import 'package:quantity_input/quantity_input.dart';
 
 class OrderItem extends StatefulWidget {
   final ProductResponse product;
-  const OrderItem({Key? key, required this.product}) : super(key: key);
+  final String title;
+  const OrderItem({Key? key, required this.product, required this.title}) : super(key: key);
 
   @override
   State<OrderItem> createState() => _OrderItemState();
@@ -110,7 +111,7 @@ class _OrderItemState extends State<OrderItem> {
                                   ),
                                   child: TextButton(
                                     onPressed: () {},
-                                    child: Text(widget.product.price.toString(),
+                                    child: Text("RM " + widget.product.price.toString(),
                                         style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 10)),

@@ -33,6 +33,16 @@ class _PaymentState extends State<Payment> {
   bool buttonEnabled = false;
   bool showUserPassword = false;
 
+  String? dropDownValue;
+
+  var items = [
+    'Public Bank',
+    'Maybank',
+    'CIMB Bank',
+    'Citi Bank',
+    'Hong Leong Bank'
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -107,6 +117,34 @@ class _PaymentState extends State<Payment> {
                                           fontWeight: FontWeight.bold)),
                                   SizedBox(height: 10),
                                   Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                      margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                      decoration: BoxDecoration(
+                                          border:
+                                              Border.all(color: Colors.black)),
+                                      child: DropdownButtonFormField(
+                                        decoration: InputDecoration(
+                                            enabledBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.black))),
+                                        value: dropDownValue,
+                                        icon: const Icon(
+                                            Icons.keyboard_arrow_down),
+                                        items: items.map((String items) {
+                                          return DropdownMenuItem(
+                                            value: items,
+                                            child: Text(items),
+                                          );
+                                        }).toList(),
+                                        onChanged: (String? newValue) {
+                                          setState(() {
+                                            dropDownValue = newValue!;
+                                          });
+                                        },
+                                      )),
+                                  SizedBox(height: 10),
+                                  Container(
                                     padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                                     child: TextFormField(
                                         controller: txtIdController,
@@ -156,14 +194,16 @@ class _PaymentState extends State<Payment> {
                                   SizedBox(height: 28),
                                   Container(
                                       margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                                       decoration: BoxDecoration(
                                         color: Colors.black,
                                         border: Border.all(color: Colors.black),
                                       ),
                                       child: TextButton(
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.pushNamed(
+                                                context, "invoice");
+                                          },
                                           child: Text("Proceed",
                                               style: TextStyle(
                                                   color: Colors.white))))
@@ -199,9 +239,8 @@ class _PaymentState extends State<Payment> {
                           if (paymentMethod == "eWallet")
                             Container(
                               child: Text("E-wallet section",
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold
-                              )),
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                             ),
                           Container(
                             margin: EdgeInsets.fromLTRB(20, 10, 20, 0),
@@ -273,54 +312,58 @@ class _PaymentState extends State<Payment> {
                                     inputFormatters: <TextInputFormatter>[
                                       FilteringTextInputFormatter.digitsOnly,
                                     ],
+                                    maxLength: 19,
                                   ),
                                 ),
                                 SizedBox(height: 8),
                                 Container(
                                   padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                                   child: TextFormField(
-                                      obscureText: !showUserPassword,
-                                      controller: txtCvvController,
-                                      decoration: InputDecoration(
-                                          labelText: 'CVV Number',
-                                          border: OutlineInputBorder(),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.blue),
-                                          ),
-                                          labelStyle: TextStyle(
-                                            color: Colors.black,
-                                          ),
-                                          suffixIcon: IconButton(
-                                              icon: Icon(
-                                                //_showCurrentPassword was a condition
-                                                showUserPassword
-                                                    ? Icons.visibility
-                                                    : Icons.visibility_off,
-                                              ),
-                                              onPressed: () {
-                                                //setState is the tool that make the state change
-                                                setState(() {
-                                                  showUserPassword =
-                                                  !showUserPassword;
-                                                });
-                                              })),
+                                    obscureText: !showUserPassword,
+                                    controller: txtCvvController,
+                                    decoration: InputDecoration(
+                                        labelText: 'CVV Number',
+                                        border: OutlineInputBorder(),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide:
+                                              BorderSide(color: Colors.blue),
+                                        ),
+                                        labelStyle: TextStyle(
+                                          color: Colors.black,
+                                        ),
+                                        suffixIcon: IconButton(
+                                            icon: Icon(
+                                              //_showCurrentPassword was a condition
+                                              showUserPassword
+                                                  ? Icons.visibility
+                                                  : Icons.visibility_off,
+                                            ),
+                                            onPressed: () {
+                                              //setState is the tool that make the state change
+                                              setState(() {
+                                                showUserPassword =
+                                                    !showUserPassword;
+                                              });
+                                            })),
                                     keyboardType: TextInputType.number,
                                     inputFormatters: <TextInputFormatter>[
                                       FilteringTextInputFormatter.digitsOnly,
-                                    ],),
+                                    ],
+                                  ),
                                 ),
                                 SizedBox(height: 28),
                                 Container(
                                     margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                                    padding:
-                                    EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                                     decoration: BoxDecoration(
                                       color: Colors.black,
                                       border: Border.all(color: Colors.black),
                                     ),
                                     child: TextButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, "invoice");
+                                        },
                                         child: Text("Proceed",
                                             style: TextStyle(
                                                 color: Colors.white)))),

@@ -11,6 +11,10 @@ import 'package:dreamwork/ui/ResetPassword.dart';
 import 'package:dreamwork/ui/SplashScreen.dart';
 import 'package:flutter/material.dart';
 
+import 'ui/Invoice.dart';
+import 'ui/Reward.dart';
+import 'ui/TopUp.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -29,6 +33,9 @@ class MyApp extends StatelessWidget {
     'order' : (context) => Order(),
     'checkOut': (context) => CheckOut(),
     'payment' : (context) => Payment(),
+    'topUp' : (context) => TopUp(),
+    'invoice' : (context) => Invoice(),
+    'reward' : (context) => Reward(),
 
   };
 
