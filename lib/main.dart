@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 
 import 'ui/Invoice.dart';
 import 'ui/Reward.dart';
+import 'ui/RewardsHistory.dart';
 import 'ui/TopUp.dart';
 
 void main() {
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
     'topUp' : (context) => TopUp(),
     'invoice' : (context) => Invoice(),
     'reward' : (context) => Reward(),
+    'rewardsHistory' : (context) => RewardsHistory(),
 
   };
 

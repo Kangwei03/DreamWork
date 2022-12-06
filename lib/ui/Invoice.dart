@@ -200,7 +200,7 @@ class _InvoiceState extends State<Invoice> {
                                                   child: Text("2",
                                                       style: TextStyle(
                                                           color: Colors.black,
-                                                          fontSize: 10)),
+                                                          fontSize: 15)),
                                                 ),
                                               )),
                                         ],
@@ -328,7 +328,7 @@ class _InvoiceState extends State<Invoice> {
                                                   child: Text("2",
                                                       style: TextStyle(
                                                           color: Colors.black,
-                                                          fontSize: 10)),
+                                                          fontSize: 15)),
                                                 ),
                                               )),
                                         ],
@@ -381,44 +381,39 @@ class _InvoiceState extends State<Invoice> {
             Container(
                 width: MediaQuery.of(context).size.width,
                 decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Colors.black)
-                  ),
+                  border: Border(bottom: BorderSide(color: Colors.black)),
                 ),
                 child: Column(
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.fromLTRB(10,20,0,15),
-                      child: Text("SUMMARY",
-                      textAlign: TextAlign.start,
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ))
-                    ),
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.fromLTRB(10, 20, 0, 15),
+                        child: Text("SUMMARY",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ))),
                     Row(
                       children: [
                         Container(
-                          padding: EdgeInsets.fromLTRB(10,10,0,0),
+                          padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
                           child: Text("Sub Total : ",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 15,
                               )),
                         ),
-                      Container(
-                        width: 280,
-                        child: Text("RM 30",
-                        textAlign: TextAlign.end)
-                      )
+                        Container(
+                            width: 280,
+                            child: Text("RM 30", textAlign: TextAlign.end))
                       ],
                     ),
                     SizedBox(height: 18),
                     Row(
                       children: [
                         Container(
-                          padding: EdgeInsets.fromLTRB(10,10,0,10),
+                          padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
                           child: Text("Delivery Fee : ",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -426,18 +421,38 @@ class _InvoiceState extends State<Invoice> {
                               )),
                         ),
                         Container(
-                          padding: EdgeInsets.fromLTRB(0,0,27,0),
+                            padding: EdgeInsets.fromLTRB(0, 0, 27, 0),
                             width: 280,
-                            child: Text("RM 4",
-                                textAlign: TextAlign.end)
-                        )
+                            child: Text("RM 4", textAlign: TextAlign.end))
                       ],
                     ),
                     SizedBox(height: 18),
                     Row(
                       children: [
                         Container(
-                          padding: EdgeInsets.fromLTRB(10,0,0,10),
+                          padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
+                          child: Text("Points Earned : ",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 15,
+                              )),
+                        ),
+                        Container(
+                          padding: EdgeInsets.fromLTRB(0,0,20,0),
+                            width: 260,
+                            //points need to calculate again by
+                            //using the totalPurchase * 0.01 as the point earn.
+                            child: Text("200", textAlign: TextAlign.end,
+                            style: TextStyle(
+                              fontSize: 15,
+                            ))),
+                      ],
+                    ),
+                    SizedBox(height: 18),
+                    Row(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
                           child: Text("Total : ",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
@@ -445,11 +460,9 @@ class _InvoiceState extends State<Invoice> {
                               )),
                         ),
                         Container(
-                            padding: EdgeInsets.fromLTRB(40,0,22,0),
+                            padding: EdgeInsets.fromLTRB(40, 0, 22, 0),
                             width: 330,
-                            child: Text("RM 34",
-                                textAlign: TextAlign.end)
-                        ),
+                            child: Text("RM 34", textAlign: TextAlign.end)),
                       ],
                     ),
                     SizedBox(height: 18),
@@ -458,40 +471,34 @@ class _InvoiceState extends State<Invoice> {
             SizedBox(height: 28),
             Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.fromLTRB(40,0,15,20),
-              margin: EdgeInsets.fromLTRB(40,0,25,10),
+              padding: EdgeInsets.fromLTRB(40, 0, 15, 20),
+              margin: EdgeInsets.fromLTRB(40, 0, 25, 10),
               child: Row(
                 children: [
                   Container(
-                    width: 100,
-                    height: 50,
-                      margin: EdgeInsets.fromLTRB(0,0,10,0),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                    ),
-                    child: TextButton(
-                      onPressed: (){},
-                      child: Text("Proceed",
-                      style: TextStyle(
-                        color: Colors.black,
-                      ))
-                    )
-                  ),
+                      width: 100,
+                      height: 50,
+                      margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                      ),
+                      child: TextButton(
+                          onPressed: () {},
+                          child: Text("Proceed",
+                              style: TextStyle(
+                                color: Colors.black,
+                              )))),
                   Container(
-                      margin: EdgeInsets.fromLTRB(15,0,0,0),
-                    width: 100,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black),
-                    ),
-                    child: TextButton(
-                      onPressed: (){},
-                      child: Text("Print",
-                      style: TextStyle(
-                        color: Colors.black
-                      ))
-                    )
-                  ),
+                      margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                      width: 100,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                      ),
+                      child: TextButton(
+                          onPressed: () {},
+                          child: Text("Print",
+                              style: TextStyle(color: Colors.black)))),
                 ],
               ),
             )
