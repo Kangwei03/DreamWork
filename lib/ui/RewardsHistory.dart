@@ -1,3 +1,4 @@
+import 'package:dreamwork/response/RewardsHistoryResponse.dart';
 import 'package:flutter/material.dart';
 
 class RewardsHistory extends StatefulWidget {
@@ -8,14 +9,111 @@ class RewardsHistory extends StatefulWidget {
 }
 
 class _RewardsHistoryState extends State<RewardsHistory> {
-  Widget buildStatus(String status){
+  List<RewardsHistoryResponse> rewardsHistoryList = List.empty(growable: true);
+  late RewardsHistoryResponse rewardsHistoryResponse;
+
+  void initView() async {
+    //call api to retrieve user details
+    //get value and put into gender
+    rewardsHistoryResponse = RewardsHistoryResponse(
+        "rewards.png", "Yoga Map", 100, DateTime(2022, 12, 08), "Approved");
+    rewardsHistoryList.add(RewardsHistoryResponse(
+        "rewards.png", "Yoga Map", 100, DateTime(2022, 12, 04), "Approved"));
+  }
+
+  Widget buildRewardsHistory(RewardsHistoryResponse e) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        color: Colors.white,
+      ),
+      child: Row(
+        children: [
+          Expanded(flex: 10, child: Image.asset("Assets/rewards2.png")),
+          Expanded(
+              flex: 20,
+              child: Column(
+                children: [
+                  Container(
+                      padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
+                      width: double.infinity,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 15,
+                            child: Container(
+                              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                              child: Text("Yoga Map",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  )),
+                            ),
+                          ),
+                          Expanded(
+                              flex: 8,
+                              child: Container(
+                                  padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          child: Text("100",
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                              )),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                            child: Image.asset(
+                                          e.image,
+                                          width: 40,
+                                        )),
+                                      )
+                                    ],
+                                  )))
+                        ],
+                      )),
+                  SizedBox(height: 8),
+                  Container(
+                      padding: EdgeInsets.fromLTRB(25, 0, 80, 0),
+                      child: Text("Redeem Time : " + "e.redeemDate",
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                          ))),
+                  SizedBox(height: 18),
+                  Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 50, 0),
+                      child: Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.fromLTRB(55, 0, 0, 0),
+                            child: Text("Status : ",
+                                style: TextStyle(color: Colors.black)),
+                          ),
+                          buildStatus(e.status)
+                        ],
+                      )),
+                  ...rewardsHistoryList.map((e) => buildRewardsHistory(e)).toList(),],
+              )),
+          SizedBox(height: 28)
+        ],
+      ),
+
+    );
+  }
+
+  Widget buildStatus(String status) {
     Color statusTextColor = Colors.black;
 
-    if(status == 'Pending'){
+    if (status == 'Pending') {
       statusTextColor = Colors.orange;
-    }else if(status == 'Approved'){
+    } else if (status == 'Approved') {
       statusTextColor = Colors.blue;
-    }else if(status == 'Rejected'){
+    } else if (status == 'Rejected') {
       statusTextColor = Colors.red;
     }
 
@@ -117,23 +215,21 @@ class _RewardsHistoryState extends State<RewardsHistory> {
                             SizedBox(height: 8),
                             Container(
                                 padding: EdgeInsets.fromLTRB(25, 0, 80, 0),
-                                child:
-                                    Text("Redeem Time : 6/12/2022",
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.bold,
-                                        ))),
+                                child: Text("Redeem Time : 6/12/2022",
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.bold,
+                                    ))),
                             SizedBox(height: 18),
                             Container(
                                 margin: EdgeInsets.fromLTRB(0, 0, 50, 0),
                                 child: Row(
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.fromLTRB(55,0,0,0),
+                                      padding: EdgeInsets.fromLTRB(55, 0, 0, 0),
                                       child: Text("Status : ",
-                                          style: TextStyle(
-                                              color: Colors.black
-                                          )),
+                                          style:
+                                              TextStyle(color: Colors.black)),
                                     ),
                                     buildStatus("Approved")
                                   ],
@@ -165,7 +261,7 @@ class _RewardsHistoryState extends State<RewardsHistory> {
                                       flex: 15,
                                       child: Container(
                                         padding:
-                                        EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                            EdgeInsets.fromLTRB(10, 0, 10, 0),
                                         child: Text("Water Bottle",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
@@ -178,7 +274,7 @@ class _RewardsHistoryState extends State<RewardsHistory> {
                                         flex: 8,
                                         child: Container(
                                             padding:
-                                            EdgeInsets.fromLTRB(8, 0, 0, 0),
+                                                EdgeInsets.fromLTRB(8, 0, 0, 0),
                                             child: Row(
                                               children: [
                                                 Expanded(
@@ -192,9 +288,9 @@ class _RewardsHistoryState extends State<RewardsHistory> {
                                                 Expanded(
                                                   child: Container(
                                                       child: Image.asset(
-                                                        "Assets/dollar.png",
-                                                        width: 40,
-                                                      )),
+                                                    "Assets/dollar.png",
+                                                    width: 40,
+                                                  )),
                                                 )
                                               ],
                                             )))
@@ -203,8 +299,7 @@ class _RewardsHistoryState extends State<RewardsHistory> {
                             SizedBox(height: 8),
                             Container(
                                 padding: EdgeInsets.fromLTRB(25, 0, 80, 0),
-                                child:
-                                Text("Redeem Time : 6/12/2022",
+                                child: Text("Redeem Time : 6/12/2022",
                                     style: TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.bold,
@@ -215,11 +310,10 @@ class _RewardsHistoryState extends State<RewardsHistory> {
                                 child: Row(
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.fromLTRB(55,0,0,0),
+                                      padding: EdgeInsets.fromLTRB(55, 0, 0, 0),
                                       child: Text("Status : ",
-                                          style: TextStyle(
-                                              color: Colors.black
-                                          )),
+                                          style:
+                                              TextStyle(color: Colors.black)),
                                     ),
                                     buildStatus("Pending")
                                   ],
@@ -251,7 +345,7 @@ class _RewardsHistoryState extends State<RewardsHistory> {
                                       flex: 15,
                                       child: Container(
                                         padding:
-                                        EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                            EdgeInsets.fromLTRB(10, 0, 10, 0),
                                         child: Text("Yoga Map",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
@@ -264,7 +358,7 @@ class _RewardsHistoryState extends State<RewardsHistory> {
                                         flex: 8,
                                         child: Container(
                                             padding:
-                                            EdgeInsets.fromLTRB(8, 0, 0, 0),
+                                                EdgeInsets.fromLTRB(8, 0, 0, 0),
                                             child: Row(
                                               children: [
                                                 Expanded(
@@ -278,9 +372,9 @@ class _RewardsHistoryState extends State<RewardsHistory> {
                                                 Expanded(
                                                   child: Container(
                                                       child: Image.asset(
-                                                        "Assets/dollar.png",
-                                                        width: 40,
-                                                      )),
+                                                    "Assets/dollar.png",
+                                                    width: 40,
+                                                  )),
                                                 )
                                               ],
                                             )))
@@ -289,8 +383,7 @@ class _RewardsHistoryState extends State<RewardsHistory> {
                             SizedBox(height: 8),
                             Container(
                                 padding: EdgeInsets.fromLTRB(25, 0, 80, 0),
-                                child:
-                                Text("Redeem Time : 6/12/2022",
+                                child: Text("Redeem Time : 6/12/2022",
                                     style: TextStyle(
                                       fontSize: 13,
                                       fontWeight: FontWeight.bold,
@@ -301,11 +394,10 @@ class _RewardsHistoryState extends State<RewardsHistory> {
                                 child: Row(
                                   children: [
                                     Container(
-                                      padding: EdgeInsets.fromLTRB(55,0,0,0),
+                                      padding: EdgeInsets.fromLTRB(55, 0, 0, 0),
                                       child: Text("Status : ",
-                                          style: TextStyle(
-                                              color: Colors.black
-                                          )),
+                                          style:
+                                              TextStyle(color: Colors.black)),
                                     ),
                                     buildStatus("Rejected")
                                   ],

@@ -14,6 +14,9 @@ class _HomePageState extends State<HomePage> {
   static const IconData privacy_tip =
       IconData(0xe4ed, fontFamily: 'MaterialIcons');
   static const IconData delete = IconData(0xe1b9, fontFamily: 'MaterialIcons');
+  static const IconData person = IconData(0xe491, fontFamily: 'MaterialIcons');
+  static const IconData lock = IconData(0xe3ae, fontFamily: 'MaterialIcons');
+
 
   String user1 = "Hello1";
   @override
@@ -31,13 +34,6 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(color: Colors.white)),
             ],
           ),
-          leading: IconButton(
-              icon: Icon(settings),
-              alignment: Alignment.topRight,
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              }),
-
           // actions: <Widget>[
           //   IconButton(
           //     icon: Icon(
@@ -55,6 +51,42 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(20),
                 child: ListView(
                   children: [
+                    InkWell(
+                        child: Container(
+                            padding: EdgeInsets.all(16),
+                            child: Row(
+                              children: const [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 8),
+                                  child: Icon(person),
+                                ),
+                                Text("USER DETAILS",
+                                    style:
+                                    TextStyle(fontWeight: FontWeight.bold))
+                              ],
+                            )),
+                        onTap: () {
+                          Navigator.pushNamed(context, "userDetails");
+                        }),
+                    SizedBox(height: 28),
+                    InkWell(
+                        child: Container(
+                            padding: EdgeInsets.all(16),
+                            child: Row(
+                              children: const [
+                                Padding(
+                                  padding: EdgeInsets.only(right: 8),
+                                  child: Icon(lock),
+                                ),
+                                Text("RESET PASSWORD",
+                                    style:
+                                    TextStyle(fontWeight: FontWeight.bold))
+                              ],
+                            )),
+                        onTap: () {
+                          Navigator.pushNamed(context, "changePassword");
+                        }),
+                    SizedBox(height: 28),
                     InkWell(
                         child: Container(
                             padding: EdgeInsets.all(16),

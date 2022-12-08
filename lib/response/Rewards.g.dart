@@ -8,7 +8,6 @@ part of 'Rewards.dart';
 
 RewardsResponse _$RewardsResponseFromJson(Map<String, dynamic> json) =>
     RewardsResponse(
-      json['points'] as int,
       json['image_url'] as String,
       json['name'] as String,
       json['description'] as String,
@@ -18,7 +17,6 @@ RewardsResponse _$RewardsResponseFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$RewardsResponseToJson(RewardsResponse instance) =>
     <String, dynamic>{
-      'points': instance.points,
       'image_url': instance.image_url,
       'name': instance.name,
       'description': instance.description,

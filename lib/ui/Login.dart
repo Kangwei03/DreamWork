@@ -147,7 +147,7 @@ class _LoginState extends State<Login> {
                       onPressed: buttonEnabled
                           ? () {
                               //Put the navigator place
-                              Navigator.pushNamed(context, 'homePage');
+                        Navigator.pushNamedAndRemoveUntil(context, 'homePage', (route) => false);
                             }
                           : null,
                       child:

@@ -4,8 +4,6 @@ part 'Rewards.g.dart';
 
 @JsonSerializable()
 class RewardsResponse {
-  @JsonKey(name: 'points')
-  final int points;
 
   @JsonKey(name: 'image_url')
   final String image_url;
@@ -22,7 +20,7 @@ class RewardsResponse {
   @JsonKey(name: 'coinImage')
   final String coinImage;
 
-  RewardsResponse(this.points, this.image_url, this.name, this.description,
+  RewardsResponse(this.image_url, this.name, this.description,
       this.pointNeeded,
       this.coinImage);
 
@@ -32,6 +30,6 @@ class RewardsResponse {
 
   @override
   String toString() {
-    return 'RewardsResponse{points: $points, image_url: $image_url, name: $name, description: $description, pointNeeded: $pointNeeded, coinImage: $coinImage}';
+    return 'RewardsResponse{ image_url: $image_url, name: $name, description: $description, pointNeeded: $pointNeeded, coinImage: $coinImage}';
   }
 }

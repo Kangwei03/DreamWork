@@ -152,7 +152,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                                       title: const Text("Reset Password Successful",
                                           style: TextStyle(fontWeight: FontWeight.bold)),
                                       content: const Text(
-                                          "You have successfully rest Password. You may sign in now."),
+                                          "You have successfully reset Password. You may sign in now."),
                                       actions: <Widget>[
                                         TextButton(
                                           onPressed: () {

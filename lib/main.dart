@@ -9,8 +9,11 @@ import 'package:dreamwork/ui/Payment.dart';
 import 'package:dreamwork/ui/Register.dart';
 import 'package:dreamwork/ui/ResetPassword.dart';
 import 'package:dreamwork/ui/SplashScreen.dart';
+import 'package:dreamwork/ui/UserDetails.dart';
 import 'package:flutter/material.dart';
 
+import 'ui/BodyHistory.dart';
+import 'ui/ChangePassword.dart';
 import 'ui/Invoice.dart';
 import 'ui/Reward.dart';
 import 'ui/RewardsHistory.dart';
@@ -38,6 +41,9 @@ class MyApp extends StatelessWidget {
     'invoice' : (context) => Invoice(),
     'reward' : (context) => Reward(),
     'rewardsHistory' : (context) => RewardsHistory(),
+    'changePassword' : (context) => ChangePassword(),
+    'userDetails' : (context) => UserDetails(),
+    'bodyHistory' : (context) => BodyHistory(),
 
   };
 

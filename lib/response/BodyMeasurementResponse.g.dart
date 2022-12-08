@@ -20,6 +20,7 @@ BodyMeasurementResponse _$BodyMeasurementResponseFromJson(
       (json['hip'] as num).toDouble(),
       (json['tight'] as num).toDouble(),
       (json['calf'] as num).toDouble(),
+      (json['bmi'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$BodyMeasurementResponseToJson(
@@ -36,4 +37,5 @@ Map<String, dynamic> _$BodyMeasurementResponseToJson(
       'hip': instance.hip,
       'tight': instance.tight,
       'calf': instance.calf,
+      'bmi': instance.bmi,
     };

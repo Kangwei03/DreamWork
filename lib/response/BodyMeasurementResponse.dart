@@ -38,6 +38,8 @@ class BodyMeasurementResponse {
   @JsonKey(name: 'calf')
   final double calf;
 
+  @JsonKey(name: 'bmi')
+  final double bmi;
 
   BodyMeasurementResponse(
       this.id,
@@ -50,7 +52,8 @@ class BodyMeasurementResponse {
       this.waist,
       this.hip,
       this.tight,
-      this.calf);
+      this.calf,
+      this.bmi);
 
   //convert json to object
   factory BodyMeasurementResponse.fromJson(Map<String, dynamic> json) =>
@@ -58,6 +61,6 @@ class BodyMeasurementResponse {
 
   @override
   String toString() {
-    return 'BodyMeasurementResponse{id: $id, created_at: $created_at, weight: $weight, height: $height, shoulder: $shoulder, arm: $arm, chest: $chest, waist: $waist, hip: $hip, tight: $tight, calf: $calf}';
+    return 'BodyMeasurementResponse{id: $id, created_at: $created_at, weight: $weight, height: $height, shoulder: $shoulder, arm: $arm, chest: $chest, waist: $waist, hip: $hip, tight: $tight, calf: $calf, bmi: $bmi}';
   }
 }

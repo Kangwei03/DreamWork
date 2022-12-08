@@ -15,7 +15,8 @@ class _BodyMeasureState extends State<BodyMeasure> {
   final txtWeightController = TextEditingController();
   final txtHeightController = TextEditingController();
 
-  List<BodyMeasurementResponse> bodyMeasurementList = List.empty(growable: true);
+  List<BodyMeasurementResponse> bodyMeasurementList =
+      List.empty(growable: true);
   late BodyMeasurementResponse bodyMeasurementResponse;
 
   bool buttonEnabled = false;
@@ -43,8 +44,10 @@ class _BodyMeasureState extends State<BodyMeasure> {
   void initView() async {
     //call api to retrieve user details
     //get value and put into gender
-    bodyMeasurementResponse = BodyMeasurementResponse(1, "2022-11-23", 75, 155, 15, 15, 15, 15, 15, 15, 15);
-    bodyMeasurementList.add(BodyMeasurementResponse(1, "2022-11-23", 75, 155, 15, 15, 15, 15, 15, 15, 15));
+    bodyMeasurementResponse = BodyMeasurementResponse(
+        1, "2022-11-23", 75, 155, 15, 15, 15, 15, 15, 15, 15, 31.2);
+    bodyMeasurementList.add(BodyMeasurementResponse(
+        1, "2022-11-23", 75, 155, 15, 15, 15, 15, 15, 15, 15, 31.2));
     setState(() {
       txtHeightController.text = f.format(bodyMeasurementResponse.height);
       txtWeightController.text = f.format(bodyMeasurementResponse.weight);
@@ -75,30 +78,43 @@ class _BodyMeasureState extends State<BodyMeasure> {
     return Text("BMI status is $bmiStatus");
   }
 
-  Widget photoDisplay(){
-    if(gender == "male"){
+  Widget photoDisplay() {
+    if (gender == "male") {
       return Image.asset("Assets/bodymen.png");
-    }else if(gender == "female"){
+    } else if (gender == "female") {
       return Image.asset("Assets/bodygirl.png");
-    }else{
+    } else {
       return Image.asset("Assets/bodyothers.png");
     }
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: Colors.black,
-            centerTitle: true,
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: const [
-                Text("DreamWork", style: TextStyle(fontWeight: FontWeight.bold))
-              ],
-            )),
+          backgroundColor: Colors.black,
+          centerTitle: true,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: const [
+              Text("DreamWork", style: TextStyle(fontWeight: FontWeight.bold))
+            ],
+          ),
+          actions: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(right: 20),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, "bodyHistory");
+                },
+                child: Icon(
+                  Icons.history, // add custom icons also
+                ),
+              ),
+            )
+          ],
+        ),
         body: SingleChildScrollView(
             child: Expanded(
                 child: Column(
@@ -371,7 +387,6 @@ class _BodyMeasureState extends State<BodyMeasure> {
                             color: Colors.blue),
                         child: TextButton(
                             onPressed: () {
-
                               showDialog(
                                 context: context,
                                 builder: (ctx) => AlertDialog(

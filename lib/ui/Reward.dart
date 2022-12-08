@@ -20,13 +20,14 @@ class _RewardState extends State<Reward> {
   @override
   void initState() {
     super.initState();
-
+    // Future.delayed(Duration(seconds: 2)).then((value) {setState(() {
+    //   isLoading = false;
+    // });});
     initView();
   }
 
   void initView() async {
     RewardsResponse rewardsResponse = RewardsResponse(
-        500,
         "Assets/rewards.png",
         "Water Bottle",
         "Enjoy a new free water \n bottle as our gift for you.",
@@ -35,7 +36,6 @@ class _RewardState extends State<Reward> {
     RewardsList.add(rewardsResponse);
     RewardsList.addAll([
       RewardsResponse(
-          500,
           "Assets/rewards2.png",
           "Yoga Map",
           "Serve with high quality\n material.",
