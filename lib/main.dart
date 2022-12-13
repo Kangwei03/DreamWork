@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'ui/BodyHistory.dart';
 import 'ui/ChangePassword.dart';
 import 'ui/Invoice.dart';
+import 'ui/OrderHistory.dart';
 import 'ui/Reward.dart';
 import 'ui/RewardsHistory.dart';
 import 'ui/TopUp.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
     'changePassword' : (context) => ChangePassword(),
     'userDetails' : (context) => UserDetails(),
     'bodyHistory' : (context) => BodyHistory(),
+    'orderHistory' : (context) => OrderHistory(),
 
   };
 

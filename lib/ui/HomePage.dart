@@ -230,6 +230,23 @@ class _HomePageState extends State<HomePage> {
                                     style: TextStyle(
                                       color: Colors.black,
                                     )))),
+                        SizedBox(height: 28),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            border: Border.all(color: Colors.black),
+                          ),
+                          child: TextButton(
+                            onPressed: (){
+                              Navigator.pushNamed(context, "orderHistory");
+                            },
+                            child: Text("Order History",
+                            style: TextStyle(
+                              color: Colors.black,
+                            ))
+                          )
+                        )
                       ],
                     ))
               ],

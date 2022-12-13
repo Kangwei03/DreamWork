@@ -43,7 +43,7 @@ class _RewardsHistoryState extends State<RewardsHistory> {
                             flex: 15,
                             child: Container(
                               padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                              child: Text("Yoga Map",
+                              child: Text(e.name,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
