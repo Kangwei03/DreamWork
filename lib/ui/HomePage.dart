@@ -1,3 +1,4 @@
+import 'package:dreamwork/Constant.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -17,6 +18,12 @@ class _HomePageState extends State<HomePage> {
   static const IconData person = IconData(0xe491, fontFamily: 'MaterialIcons');
   static const IconData lock = IconData(0xe3ae, fontFamily: 'MaterialIcons');
 
+  @override
+  void initState() {
+    super.initState();
+
+    print("User token: ${Constant.userToken}");
+  }
 
   String user1 = "Hello1";
   @override

@@ -42,6 +42,9 @@ class _RewardState extends State<Reward> {
           100,
           "Assets/dollar.png"),
     ]);
+
+    //get payload
+    //call api
   }
 
   Widget buildRewardItem(RewardsResponse reward) {

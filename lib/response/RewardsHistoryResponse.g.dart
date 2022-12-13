@@ -12,11 +12,12 @@ RewardsHistoryResponse _$RewardsHistoryResponseFromJson(
       json['image'] as String,
       json['name'] as String,
       json['points'] as int,
-          DateTime.parse(json['redeemDate'] as String),
+      DateTime.parse(json['redeemDate'] as String),
       json['status'] as String,
     );
 
-Map<String, dynamic> _$RewardsHistoryToJson(RewardsHistoryResponse instance) =>
+Map<String, dynamic> _$RewardsHistoryResponseToJson(
+        RewardsHistoryResponse instance) =>
     <String, dynamic>{
       'image': instance.image,
       'name': instance.name,

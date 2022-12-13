@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dreamwork/util/CustomException.dart';
 import 'package:http/http.dart' as http;
 
 import '../constant.dart';
@@ -8,7 +9,7 @@ import '../constant.dart';
 class HttpClient{
   var client = http.Client();
 
-  static const baseUrl = "54.179.56.6";
+  static const baseUrl = "13.228.164.132";
   static const timeoutPeriod = Duration(seconds:60);
 
   Future<dynamic> getRequest(String path, final payload, {Map<String,String> header = const {}}) async {
@@ -44,8 +45,7 @@ class HttpClient{
       } else if (statusCode == 401) {
         throw Exception(jsonDecode(response.body)['message']);
       } else {
-        print(jsonDecode(response.body)['message']);
-        throw Exception(jsonDecode(response.body)['message']);
+        throw GenericException(jsonDecode(response.body)['error']['message']);
       }
     } on SocketException {
       throw Exception('Server Connection Timeout');
@@ -76,7 +76,7 @@ class HttpClient{
         throw Exception("Server Connection Timeout");
       });
 
-      print(response.body);
+      print('When post ${response.body}');
 
       final statusCode = response.statusCode;
 
@@ -89,8 +89,7 @@ class HttpClient{
       } else if (statusCode == 401) {
         throw Exception(jsonDecode(response.body)['message']);
       } else {
-        print(jsonDecode(response.body)['message']);
-        throw Exception(jsonDecode(response.body)['message']);
+        throw GenericException(jsonDecode(response.body)['error']['message']);
       }
     } on SocketException {
       throw Exception('Server Connection Timeout');
@@ -133,8 +132,7 @@ class HttpClient{
       } else if (statusCode == 401) {
         throw Exception(jsonDecode(response.body)['message']);
       } else {
-        print(jsonDecode(response.body)['message']);
-        throw Exception(jsonDecode(response.body)['message']);
+        throw GenericException(jsonDecode(response.body)['error']['message']);
       }
     } on SocketException {
       throw Exception('Server Connection Timeout');
@@ -170,8 +168,7 @@ class HttpClient{
         print('unauthorized');
         throw Exception(jsonDecode(response.body)['message']);
       } else {
-        print(jsonDecode(response.body)['message']);
-        throw Exception(jsonDecode(response.body)['message']);
+        throw GenericException(jsonDecode(response.body)['error']['message']);
       }
     } on SocketException {
       print('server timeout');
