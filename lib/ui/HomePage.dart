@@ -69,7 +69,8 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 Text("USER DETAILS",
                                     style:
-                                    TextStyle(fontWeight: FontWeight.bold))
+                                    TextStyle(fontWeight: FontWeight.bold,
+                                    fontSize: 15))
                               ],
                             )),
                         onTap: () {

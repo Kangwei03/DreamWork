@@ -1,5 +1,7 @@
 
 import 'package:dreamwork/Constant.dart';
+import 'package:dreamwork/response/BodyMeasurementResponse.dart';
+import 'package:dreamwork/response/RegisterResponse.dart';
 import 'package:dreamwork/response/UserLoginResponse.dart';
 import 'package:dreamwork/util/HttpClient.dart';
 import 'package:dreamwork/util/Urls.dart';
@@ -15,6 +17,30 @@ class UserRepository{
     }
 
     return UserLoginResponse.fromJson(result);
+  }
+
+  Future<RegisterResponse> userRegister(Map<String, dynamic> payload) async{
+    final Map<String,dynamic> result = await _httpClient.postRequest(Urls.userRegister, payload);
+
+    if(result.isEmpty){
+      throw Exception('Empty data from API');
+    }
+
+    return RegisterResponse.fromJson(result);
+  }
+
+  Future<RegisterResponse> bodyMeasurement(Map<String, dynamic> payload) async{
+    final header = {
+      "Authorization": "Bearer ${Constant.userToken}"
+    };
+
+    final Map<String,dynamic> result = await _httpClient.postRequest(Urls.bodyMeasurement, payload, header: header);
+
+    if(result.isEmpty){
+      throw Exception('Empty data from API');
+    }
+
+    return RegisterResponse.fromJson(result);
   }
 
 
