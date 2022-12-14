@@ -79,7 +79,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
     } else if (bmi <= 25 && bmi > 18.5) {
       bmiStatus = "Healthy";
     } else if (bmi > 25) {
-      bmiStatus = "Obesity";
+      bmiStatus = "Not very Obesity";
     }
 
     return Text("BMI status is $bmiStatus");
