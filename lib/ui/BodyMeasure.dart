@@ -76,7 +76,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
       bmiStatus = "UnderWeight";
     } else if (bmi <= 25 && bmi > 18.5) {
       bmiStatus = "Healthy";
-    } else if (bmi <= 30 && bmi > 25) {
+    } else if (bmi > 25) {
       bmiStatus = "Obesity";
     }
 
