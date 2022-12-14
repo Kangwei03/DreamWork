@@ -20,8 +20,8 @@ class HttpClient{
         "Content-Type": "application/json",
       };
 
-      if(header['token'] != null){
-        httpHeader['token'] = header['token']!;
+      if(header['Authorization'] != null){
+        httpHeader['Authorization'] = header['Authorization']!;
       }
 
       //use http for unsecure link
@@ -64,9 +64,10 @@ class HttpClient{
         "Content-Type": "application/json",
       };
 
-      if(header['token'] != null){
-        httpHeader['token'] = header['token']!;
+      if(header['Authorization'] != null){
+        httpHeader['Authorization'] = header['Authorization']!;
       }
+
 
       response = await client.post(
         Uri.http(baseUrl, path),
@@ -108,8 +109,8 @@ class HttpClient{
         "Content-Type": "application/json",
       };
 
-      if(header['token'] != null){
-        httpHeader['token'] = header['token']!;
+      if(header['Authorization'] != null){
+        httpHeader['Authorization'] = header['Authorization']!;
       }
 
       response = await client.patch(

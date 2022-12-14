@@ -34,6 +34,8 @@ class UserRepository{
       "Authorization": "Bearer ${Constant.userToken}"
     };
 
+    print(header);
+
     final Map<String,dynamic> result = await _httpClient.postRequest(Urls.bodyMeasurement, payload, header: header);
 
     if(result.isEmpty){

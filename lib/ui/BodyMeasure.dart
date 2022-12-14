@@ -56,7 +56,9 @@ class _BodyMeasureState extends State<BodyMeasure> {
     setState(() {
       txtHeightController.text = f.format(bodyMeasurementResponse.height);
       txtWeightController.text = f.format(bodyMeasurementResponse.weight);
+      bmi = calBmi();
     });
+
   }
 
   double calBmi() {
@@ -123,8 +125,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
         body: isLoading
             ? loadingIndicator()
             : SingleChildScrollView(
-                child: Expanded(
-                    child: Column(
+                child: Column(
                 children: [
                   Container(
                       padding: EdgeInsets.fromLTRB(30, 30, 30, 0),
@@ -171,7 +172,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                       border: OutlineInputBorder(),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: Colors.blue),
+                                        BorderSide(color: Colors.blue),
                                       ),
                                       labelStyle: TextStyle(
                                         color: Colors.black,
@@ -195,7 +196,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                       border: OutlineInputBorder(),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide:
-                                            BorderSide(color: Colors.blue),
+                                        BorderSide(color: Colors.blue),
                                       ),
                                       labelStyle: TextStyle(
                                         color: Colors.black,
@@ -217,20 +218,20 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                     width: MediaQuery.of(context).size.width,
                                     decoration: BoxDecoration(
                                         border:
-                                            Border.all(color: Colors.black)),
+                                        Border.all(color: Colors.black)),
                                     height: 60,
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                             disabledForegroundColor:
-                                                Colors.blue.withOpacity(0.38),
+                                            Colors.blue.withOpacity(0.38),
                                             disabledBackgroundColor:
-                                                Colors.white.withOpacity(0.12)),
+                                            Colors.white.withOpacity(0.12)),
                                         onPressed: buttonEnabled
                                             ? () {
-                                                setState(() {
-                                                  bmi = calBmi();
-                                                });
-                                              }
+                                          setState(() {
+                                            bmi = calBmi();
+                                          });
+                                        }
                                             : null,
                                         child: Text("Calculate",
                                             style: TextStyle(
@@ -431,18 +432,18 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                         showDialog(
                                           context: context,
                                           builder: (ctx) => AlertDialog(
-                                          title: Text("Information Saved"),
-                                          content: Text(
-                                              "All the information have been recorded."),
-                                          actions: <Widget>[
-                                            TextButton(
+                                            title: Text("Information Saved"),
+                                            content: Text(
+                                                "All the information have been recorded."),
+                                            actions: <Widget>[
+                                              TextButton(
                                                 onPressed: () {
                                                   Navigator.of(ctx).pop();
                                                 },
                                                 child: Container(
                                                   color: Colors.black,
                                                   padding:
-                                                      const EdgeInsets.all(14),
+                                                  const EdgeInsets.all(14),
                                                   child: Text("OK",
                                                       style: TextStyle(
                                                           color: Colors.white)),
@@ -451,9 +452,6 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                             ],
                                           ),
                                         );
-                                        Navigator.pushNamed(
-                                            context, "bodyMeasure");
-                                        ;
                                       }
                                     }).onError((error, stackTrace) {
                                       showErrorDialog(
@@ -471,6 +469,6 @@ class _BodyMeasureState extends State<BodyMeasure> {
                         ],
                       ))
                 ],
-              ))));
+              )));
   }
 }
