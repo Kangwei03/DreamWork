@@ -35,6 +35,8 @@ class HttpClient{
 
       final statusCode = response.statusCode;
 
+      print(response.body);
+
       if (statusCode == 200) {
         if (response.body.isEmpty) {
           return <dynamic>[];

@@ -1,3 +1,7 @@
+import 'package:dreamwork/repository/UserRepository.dart';
+import 'package:dreamwork/response/RegisterResponse.dart';
+import 'package:dreamwork/response/UserDetailsResponse.dart';
+import 'package:dreamwork/util/Widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -14,6 +18,45 @@ class _UserDetailsState extends State<UserDetails> {
   final txtEmailController = TextEditingController();
   final txtPhoneNumberController = TextEditingController();
   final txtAddressController = TextEditingController();
+
+  UserRepository userRepository = UserRepository();
+  bool isLoading = false;
+
+  //declare variable
+  late UserDetailsResponse UserDetails;
+
+  @override
+  void initState() {
+    super.initState();
+    initView();
+  }
+
+  void initView() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    await userRepository.userDetails().then((value) {
+      UserDetails = value;
+      setControllers();
+    }).onError((error, stackTrace) => showErrorDialog(context, error.toString()))
+        .whenComplete(() {
+
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void setControllers() {
+    setState(() {
+      txtUserNameController.text = UserDetails.Name;
+      txtUserIdController.text = UserDetails.Username;
+      txtEmailController.text = UserDetails.Email;
+      txtPhoneNumberController.text = UserDetails.Phone_No;
+      txtAddressController.text = UserDetails.Address;
+    });
+  }
 
   static const IconData location_city =
   IconData(0xe3a8, fontFamily: 'MaterialIcons');
@@ -35,7 +78,9 @@ class _UserDetailsState extends State<UserDetails> {
                     ))
               ],
             )),
-        body: SingleChildScrollView(
+        body: isLoading
+        ? loadingIndicator()
+        : SingleChildScrollView(
           child: Column(
             children: [
               Container(
@@ -52,7 +97,7 @@ class _UserDetailsState extends State<UserDetails> {
                 padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                 child: TextFormField(
                     readOnly: true,
-                    controller: txtUserNameController,
+                    controller: txtUserIdController,
                     decoration: InputDecoration(
                       icon: Icon(Icons.android),
                       labelText: 'User ID ( Cannot Be Changed )',

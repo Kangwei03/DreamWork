@@ -1,3 +1,4 @@
+import 'package:dreamwork/repository/UserRepository.dart';
 import 'package:dreamwork/response/BodyMeasurementResponse.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,10 @@ class _BodyHistoryState extends State<BodyHistory> {
 
   List<BodyMeasurementResponse> bodyMeasurementList = List.empty(growable: true);
   late BodyMeasurementResponse bodyMeasurementResponse;
+
+
+  UserRepository userRepository = UserRepository();
+  bool isLoading = false;
 
   @override
   void initState() {

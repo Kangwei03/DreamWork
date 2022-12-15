@@ -97,12 +97,14 @@ class _RewardsHistoryState extends State<RewardsHistory> {
                           buildStatus(e.status)
                         ],
                       )),
-                  ...rewardsHistoryList.map((e) => buildRewardsHistory(e)).toList(),],
+                  ...rewardsHistoryList
+                      .map((e) => buildRewardsHistory(e))
+                      .toList(),
+                ],
               )),
           SizedBox(height: 28)
         ],
       ),
-
     );
   }
 
@@ -155,257 +157,260 @@ class _RewardsHistoryState extends State<RewardsHistory> {
                       fontWeight: FontWeight.bold,
                     ))),
             SizedBox(height: 28),
-            Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                        flex: 10, child: Image.asset("Assets/rewards2.png")),
-                    Expanded(
-                        flex: 20,
-                        child: Column(
-                          children: [
-                            Container(
-                                padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
-                                width: double.infinity,
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 15,
-                                      child: Container(
-                                        padding:
-                                            EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                        child: Text("Yoga Map",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                            )),
-                                      ),
-                                    ),
-                                    Expanded(
-                                        flex: 8,
-                                        child: Container(
-                                            padding:
-                                                EdgeInsets.fromLTRB(8, 0, 0, 0),
-                                            child: Row(
-                                              children: [
-                                                Expanded(
-                                                  child: Container(
-                                                    child: Text("100",
-                                                        style: TextStyle(
-                                                          fontSize: 15,
-                                                        )),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Container(
-                                                      child: Image.asset(
-                                                    "Assets/dollar.png",
-                                                    width: 40,
-                                                  )),
-                                                )
-                                              ],
-                                            )))
-                                  ],
-                                )),
-                            SizedBox(height: 8),
-                            Container(
-                                padding: EdgeInsets.fromLTRB(25, 0, 80, 0),
-                                child: Text("Redeem Time : 6/12/2022",
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                    ))),
-                            SizedBox(height: 18),
-                            Container(
-                                margin: EdgeInsets.fromLTRB(0, 0, 50, 0),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.fromLTRB(55, 0, 0, 0),
-                                      child: Text("Status : ",
-                                          style:
-                                              TextStyle(color: Colors.black)),
-                                    ),
-                                    buildStatus("Approved")
-                                  ],
-                                )),
-                          ],
-                        ))
-                  ],
-                )),
-            SizedBox(height: 28),
-            Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                        flex: 10, child: Image.asset("Assets/rewards.png")),
-                    Expanded(
-                        flex: 20,
-                        child: Column(
-                          children: [
-                            Container(
-                                padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
-                                width: double.infinity,
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 15,
-                                      child: Container(
-                                        padding:
-                                            EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                        child: Text("Water Bottle",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                            )),
-                                      ),
-                                    ),
-                                    Expanded(
-                                        flex: 8,
-                                        child: Container(
-                                            padding:
-                                                EdgeInsets.fromLTRB(8, 0, 0, 0),
-                                            child: Row(
-                                              children: [
-                                                Expanded(
-                                                  child: Container(
-                                                    child: Text("50",
-                                                        style: TextStyle(
-                                                          fontSize: 15,
-                                                        )),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Container(
-                                                      child: Image.asset(
-                                                    "Assets/dollar.png",
-                                                    width: 40,
-                                                  )),
-                                                )
-                                              ],
-                                            )))
-                                  ],
-                                )),
-                            SizedBox(height: 8),
-                            Container(
-                                padding: EdgeInsets.fromLTRB(25, 0, 80, 0),
-                                child: Text("Redeem Time : 6/12/2022",
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                    ))),
-                            SizedBox(height: 18),
-                            Container(
-                                margin: EdgeInsets.fromLTRB(0, 0, 50, 0),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.fromLTRB(55, 0, 0, 0),
-                                      child: Text("Status : ",
-                                          style:
-                                              TextStyle(color: Colors.black)),
-                                    ),
-                                    buildStatus("Pending")
-                                  ],
-                                )),
-                          ],
-                        ))
-                  ],
-                )),
-            SizedBox(height: 28),
-            Container(
-                width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                        flex: 10, child: Image.asset("Assets/rewards2.png")),
-                    Expanded(
-                        flex: 20,
-                        child: Column(
-                          children: [
-                            Container(
-                                padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
-                                width: double.infinity,
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 15,
-                                      child: Container(
-                                        padding:
-                                            EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                        child: Text("Yoga Map",
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                            )),
-                                      ),
-                                    ),
-                                    Expanded(
-                                        flex: 8,
-                                        child: Container(
-                                            padding:
-                                                EdgeInsets.fromLTRB(8, 0, 0, 0),
-                                            child: Row(
-                                              children: [
-                                                Expanded(
-                                                  child: Container(
-                                                    child: Text("100",
-                                                        style: TextStyle(
-                                                          fontSize: 15,
-                                                        )),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Container(
-                                                      child: Image.asset(
-                                                    "Assets/dollar.png",
-                                                    width: 40,
-                                                  )),
-                                                )
-                                              ],
-                                            )))
-                                  ],
-                                )),
-                            SizedBox(height: 8),
-                            Container(
-                                padding: EdgeInsets.fromLTRB(25, 0, 80, 0),
-                                child: Text("Redeem Time : 6/12/2022",
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                    ))),
-                            SizedBox(height: 18),
-                            Container(
-                                margin: EdgeInsets.fromLTRB(0, 0, 50, 0),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.fromLTRB(55, 0, 0, 0),
-                                      child: Text("Status : ",
-                                          style:
-                                              TextStyle(color: Colors.black)),
-                                    ),
-                                    buildStatus("Rejected")
-                                  ],
-                                )),
-                          ],
-                        ))
-                  ],
-                )),
+            // Container(
+            //     width: MediaQuery.of(context).size.width,
+            //     decoration: BoxDecoration(
+            //       color: Colors.white,
+            //     ),
+            //     child: Row(
+            //       children: [
+            //         Expanded(
+            //             flex: 20,
+            //             child: Column(
+            //               children: [
+            //                 Container(
+            //                     padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
+            //                     width: double.infinity,
+            //                     child: Row(
+            //                       children: [
+            //                         Expanded(
+            //                           flex: 30,
+            //                           child: Container(
+            //                             padding:
+            //                                 EdgeInsets.fromLTRB(130, 0, 10, 0),
+            //                             child: Text("Yoga Map",
+            //                                 textAlign: TextAlign.center,
+            //                                 style: TextStyle(
+            //                                   fontWeight: FontWeight.bold,
+            //                                   fontSize: 18,
+            //                                 )),
+            //                           ),
+            //                         ),
+            //                         Expanded(
+            //                             flex: 8,
+            //                             child: Container(
+            //                                 padding:
+            //                                     EdgeInsets.fromLTRB(8, 0, 0, 0),
+            //                                 child: Row(
+            //                                   children: [
+            //                                     Expanded(
+            //                                       child: Container(
+            //                                         child: Text("100",
+            //                                             style: TextStyle(
+            //                                               fontSize: 15,
+            //                                             )),
+            //                                       ),
+            //                                     ),
+            //                                     Expanded(
+            //                                       child: Container(
+            //                                           child: Image.asset(
+            //                                         "Assets/dollar.png",
+            //                                         width: 40,
+            //                                       )),
+            //                                     )
+            //                                   ],
+            //                                 )))
+            //                       ],
+            //                     )),
+            //                 SizedBox(height: 8),
+            //                 Container(
+            //                     child: Text("Redeem Time : 6/12/2022",
+            //                         style: TextStyle(
+            //                           fontSize: 13,
+            //                           fontWeight: FontWeight.bold,
+            //                         ))),
+            //                 SizedBox(height: 18),
+            //                 Container(
+            //                     margin: EdgeInsets.fromLTRB(0, 0, 50, 0),
+            //                     child: Row(
+            //                       children: [
+            //                         Container(
+            //                           padding: EdgeInsets.fromLTRB(150, 0, 0, 0),
+            //                           child: Text("Status : ",
+            //                               style:
+            //                                   TextStyle(color: Colors.black)),
+            //                         ),
+            //                         buildStatus("Approved")
+            //                       ],
+            //                     )),
+            //                 SizedBox(height: 10),
+            //               ],
+            //             ))
+            //       ],
+            //     )),
+            // SizedBox(height: 28),
+            // Container(
+            //     width: MediaQuery.of(context).size.width,
+            //     decoration: BoxDecoration(
+            //       color: Colors.white,
+            //     ),
+            //     child: Row(
+            //       children: [
+            //         Expanded(
+            //             flex: 10, child: Image.asset("Assets/rewards.png")),
+            //         Expanded(
+            //             flex: 20,
+            //             child: Column(
+            //               children: [
+            //                 Container(
+            //                     padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
+            //                     width: double.infinity,
+            //                     child: Row(
+            //                       children: [
+            //                         Expanded(
+            //                           flex: 15,
+            //                           child: Container(
+            //                             padding:
+            //                                 EdgeInsets.fromLTRB(10, 0, 10, 0),
+            //                             child: Text("Water Bottle",
+            //                                 textAlign: TextAlign.center,
+            //                                 style: TextStyle(
+            //                                   fontWeight: FontWeight.bold,
+            //                                   fontSize: 18,
+            //                                 )),
+            //                           ),
+            //                         ),
+            //                         Expanded(
+            //                             flex: 8,
+            //                             child: Container(
+            //                                 padding:
+            //                                     EdgeInsets.fromLTRB(8, 0, 0, 0),
+            //                                 child: Row(
+            //                                   children: [
+            //                                     Expanded(
+            //                                       child: Container(
+            //                                         child: Text("50",
+            //                                             style: TextStyle(
+            //                                               fontSize: 15,
+            //                                             )),
+            //                                       ),
+            //                                     ),
+            //                                     Expanded(
+            //                                       child: Container(
+            //                                           child: Image.asset(
+            //                                         "Assets/dollar.png",
+            //                                         width: 40,
+            //                                       )),
+            //                                     )
+            //                                   ],
+            //                                 )))
+            //                       ],
+            //                     )),
+            //                 SizedBox(height: 8),
+            //                 Container(
+            //                     padding: EdgeInsets.fromLTRB(25, 0, 80, 0),
+            //                     child: Text("Redeem Time : 6/12/2022",
+            //                         style: TextStyle(
+            //                           fontSize: 13,
+            //                           fontWeight: FontWeight.bold,
+            //                         ))),
+            //                 SizedBox(height: 18),
+            //                 Container(
+            //                     margin: EdgeInsets.fromLTRB(0, 0, 50, 0),
+            //                     child: Row(
+            //                       children: [
+            //                         Container(
+            //                           padding: EdgeInsets.fromLTRB(55, 0, 0, 0),
+            //                           child: Text("Status : ",
+            //                               style:
+            //                                   TextStyle(color: Colors.black)),
+            //                         ),
+            //                         buildStatus("Pending")
+            //                       ],
+            //                     )),
+            //               ],
+            //             ))
+            //       ],
+            //     )),
+            // SizedBox(height: 28),
+            // Container(
+            //     width: MediaQuery.of(context).size.width,
+            //     decoration: BoxDecoration(
+            //       color: Colors.white,
+            //     ),
+            //     child: Row(
+            //       children: [
+            //         Expanded(
+            //             flex: 10, child: Image.asset("Assets/rewards2.png")),
+            //         Expanded(
+            //             flex: 20,
+            //             child: Column(
+            //               children: [
+            //                 Container(
+            //                     padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
+            //                     width: double.infinity,
+            //                     child: Row(
+            //                       children: [
+            //                         Expanded(
+            //                           flex: 15,
+            //                           child: Container(
+            //                             padding:
+            //                                 EdgeInsets.fromLTRB(10, 0, 10, 0),
+            //                             child: Text("Yoga Map",
+            //                                 textAlign: TextAlign.center,
+            //                                 style: TextStyle(
+            //                                   fontWeight: FontWeight.bold,
+            //                                   fontSize: 18,
+            //                                 )),
+            //                           ),
+            //                         ),
+            //                         Expanded(
+            //                             flex: 8,
+            //                             child: Container(
+            //                                 padding:
+            //                                     EdgeInsets.fromLTRB(8, 0, 0, 0),
+            //                                 child: Row(
+            //                                   children: [
+            //                                     Expanded(
+            //                                       child: Container(
+            //                                         child: Text("100",
+            //                                             style: TextStyle(
+            //                                               fontSize: 15,
+            //                                             )),
+            //                                       ),
+            //                                     ),
+            //                                     Expanded(
+            //                                       child: Container(
+            //                                           child: Image.asset(
+            //                                         "Assets/dollar.png",
+            //                                         width: 40,
+            //                                       )),
+            //                                     )
+            //                                   ],
+            //                                 )))
+            //                       ],
+            //                     )),
+            //                 SizedBox(height: 8),
+            //                 Container(
+            //                     padding: EdgeInsets.fromLTRB(25, 0, 80, 0),
+            //                     child: Text("Redeem Time : 6/12/2022",
+            //                         style: TextStyle(
+            //                           fontSize: 13,
+            //                           fontWeight: FontWeight.bold,
+            //                         ))),
+            //                 SizedBox(height: 18),
+            //                 Container(
+            //                     margin: EdgeInsets.fromLTRB(0, 0, 50, 0),
+            //                     child: Row(
+            //                       children: [
+            //                         Container(
+            //                           padding: EdgeInsets.fromLTRB(55, 0, 0, 0),
+            //                           child: Text("Status : ",
+            //                               style:
+            //                                   TextStyle(color: Colors.black)),
+            //                         ),
+            //                         buildStatus("Rejected")
+            //                       ],
+            //                     )),
+            //               ],
+            //             ))
+            //       ],
+            //     )),
+            //   Column(
+            //     children: [
+            //       RewardsHistory.map((e)) => buildRewardsHistory(e)).toList()),
+            //     ],
+            //   )
           ],
         )));
   }

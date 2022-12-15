@@ -16,6 +16,13 @@ class _BodyMeasureState extends State<BodyMeasure> {
   //controller
   final txtWeightController = TextEditingController();
   final txtHeightController = TextEditingController();
+  final txtShoulderController = TextEditingController();
+  final txtArmController = TextEditingController();
+  final txtChestController = TextEditingController();
+  final txtWaistController = TextEditingController();
+  final txtHipController = TextEditingController();
+  final txtTightController = TextEditingController();
+  final txtCalfController = TextEditingController();
 
   List<BodyMeasurementResponse> bodyMeasurementList =
       List.empty(growable: true);
@@ -270,6 +277,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                     child: Column(
                                       children: [
                                         TextFormField(
+                                          controller: txtShoulderController,
                                             decoration: InputDecoration(
                                               labelText: 'Shoulder (cm)',
                                               border: OutlineInputBorder(),
@@ -289,6 +297,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                             ]),
                                         SizedBox(height: 18),
                                         TextFormField(
+                                          controller: txtArmController,
                                             decoration: InputDecoration(
                                               labelText: 'Arm (cm)',
                                               border: OutlineInputBorder(),
@@ -308,6 +317,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                             ]),
                                         SizedBox(height: 18),
                                         TextFormField(
+                                          controller: txtChestController,
                                             decoration: InputDecoration(
                                               labelText: 'Chest (cm)',
                                               border: OutlineInputBorder(),
@@ -327,6 +337,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                             ]),
                                         SizedBox(height: 18),
                                         TextFormField(
+                                          controller: txtWaistController,
                                             decoration: InputDecoration(
                                               labelText: 'Waist (cm)',
                                               border: OutlineInputBorder(),
@@ -346,6 +357,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                             ]),
                                         SizedBox(height: 18),
                                         TextFormField(
+                                          controller: txtWaistController,
                                             decoration: InputDecoration(
                                               labelText: 'Hip (cm)',
                                               border: OutlineInputBorder(),
@@ -365,6 +377,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                             ]),
                                         SizedBox(height: 18),
                                         TextFormField(
+                                          controller: txtTightController,
                                             decoration: InputDecoration(
                                               labelText: 'Tight (cm)',
                                               border: OutlineInputBorder(),
@@ -384,6 +397,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                             ]),
                                         SizedBox(height: 18),
                                         TextFormField(
+                                          controller: txtCalfController,
                                             decoration: InputDecoration(
                                               labelText: 'Calf (cm)',
                                               border: OutlineInputBorder(),
@@ -422,6 +436,13 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                       'weight': txtWeightController.text,
                                       'height': txtHeightController.text,
                                       'bmi': bmi.toString(),
+                                      'shoulder': txtShoulderController.text,
+                                      'arm': txtArmController.text,
+                                      'chest': txtChestController.text,
+                                      'waist': txtWaistController.text,
+                                      'hip': txtHipController.text,
+                                      'tight': txtTightController.text,
+                                      'calf': txtCalfController.text,
                                     };
 
                                     userRepository

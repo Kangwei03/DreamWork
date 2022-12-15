@@ -1,3 +1,4 @@
+import 'package:dreamwork/Constant.dart';
 import 'package:dreamwork/response/ProductResponse.dart';
 import 'package:flutter/material.dart';
 import 'package:quantity_input/quantity_input.dart';
@@ -26,7 +27,8 @@ class _OrderItemState extends State<OrderItem> {
             Expanded(
                 child: Container(
                   padding: EdgeInsets.all(10),
-                  child: Image.asset(widget.product.image_url),
+                  //child: Image.asset(widget.product.image_url),
+                  child: Image.network(Constant.hostUrl + widget.product.image_url),
                 )
             ),
             Expanded(
@@ -41,7 +43,7 @@ class _OrderItemState extends State<OrderItem> {
                       )),
                   SizedBox(height: 8),
                   Text(
-                      "Scientifically proven to boost your \n performance.",
+                      widget.product.description,
                       style: TextStyle(
                         fontSize: 12,
                       )),

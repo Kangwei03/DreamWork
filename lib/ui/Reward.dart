@@ -1,3 +1,4 @@
+import 'package:dreamwork/repository/UserRepository.dart';
 import 'package:dreamwork/response/Rewards.dart';
 import 'package:dreamwork/util/Widgets.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,8 @@ class _RewardState extends State<Reward> {
 
   // control the loading indicator
   bool isLoading = false;
+
+  UserRepository userRepository = UserRepository();
 
   @override
   void initState() {
@@ -127,22 +130,49 @@ class _RewardState extends State<Reward> {
                   )
                 ),
                 SizedBox(height: 18),
-                Container(
-                    height: 40,
-                    width: 70,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black)
-                    ),
-                    margin: EdgeInsets.fromLTRB(0, 0, 50, 0),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "GET",
-                        style: TextStyle(
-                          color: Colors.blue,
-                        )
+                Row(
+                  children: [
+                    Container(
+                      child: Column(
+                        children: [
+                          Text("In Stock : "),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(10, 10, 10, 5),
+                            width: 50,
+                            height: 40,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
+                                  color: Colors.white,
+                            ),
+                            child: TextButton(
+                              onPressed: (){},
+                              child: Text("13",
+                              style: TextStyle(
+                                color: Colors.black
+                              ))
+                            ),
+                          )
+                        ],
                       )
-                    )
+                    ),
+                    Container(
+                        height: 40,
+                        width: 70,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black)
+                        ),
+                        margin: EdgeInsets.fromLTRB(20, 20, 50, 0),
+                        child: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            "GET",
+                            style: TextStyle(
+                              color: Colors.blue,
+                            )
+                          )
+                        )
+                    ),
+                  ],
                 ),
               ],
             )
