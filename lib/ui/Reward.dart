@@ -1,5 +1,6 @@
+import 'package:dreamwork/repository/RewardsRepository.dart';
 import 'package:dreamwork/repository/UserRepository.dart';
-import 'package:dreamwork/response/Rewards.dart';
+import 'package:dreamwork/response/RewardsResponse.dart';
 import 'package:dreamwork/util/Widgets.dart';
 import 'package:flutter/material.dart';
 
@@ -18,33 +19,47 @@ class _RewardState extends State<Reward> {
   // control the loading indicator
   bool isLoading = false;
 
-  UserRepository userRepository = UserRepository();
+  RewardsRepository rewardsRepository = RewardsRepository();
+
 
   @override
   void initState() {
     super.initState();
-    // Future.delayed(Duration(seconds: 2)).then((value) {setState(() {
-    //   isLoading = false;
-    // });});
     initView();
   }
 
+  // void initView() async {
+  //   RewardsResponse rewardsResponse = RewardsResponse(
+  //       "Assets/rewards.png",
+  //       "Water Bottle",
+  //       "Enjoy a new free water \n bottle as our gift for you.",
+  //       50,
+  //       "Assets/dollar.png");
+  //   RewardsList.add(rewardsResponse);
+  //   RewardsList.addAll([
+  //     RewardsResponse(
+  //         "Assets/rewards2.png",
+  //         "Yoga Map",
+  //         "Serve with high quality\n material.",
+  //         100,
+  //         "Assets/dollar.png"),
+  //   ]);
+
   void initView() async {
-    RewardsResponse rewardsResponse = RewardsResponse(
-        "Assets/rewards.png",
-        "Water Bottle",
-        "Enjoy a new free water \n bottle as our gift for you.",
-        50,
-        "Assets/dollar.png");
-    RewardsList.add(rewardsResponse);
-    RewardsList.addAll([
-      RewardsResponse(
-          "Assets/rewards2.png",
-          "Yoga Map",
-          "Serve with high quality\n material.",
-          100,
-          "Assets/dollar.png"),
-    ]);
+    setState(() {
+      isLoading = true;
+    });
+
+    await RewardsRepository.product().then((value) {
+      RewardsList.clear();
+      RewardsList.addAll(value);
+    }).onError((error, stackTrace) => showErrorDialog(context, error.toString()))
+        .whenComplete(() {
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
 
     //get payload
     //call api

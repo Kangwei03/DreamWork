@@ -1,5 +1,6 @@
 import 'package:dreamwork/repository/UserRepository.dart';
 import 'package:dreamwork/response/RegisterResponse.dart';
+import 'package:dreamwork/response/RewardsResponse.dart';
 import 'package:dreamwork/response/UserDetailsResponse.dart';
 import 'package:dreamwork/util/Widgets.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,9 @@ class _UserDetailsState extends State<UserDetails> {
   bool isLoading = false;
 
   //declare variable
-  late UserDetailsResponse UserDetails;
+  late UserDetailsResponse userDetails;
+
+  List<RewardsResponse> RewardsList = List.empty(growable: true);
 
   @override
   void initState() {
@@ -37,7 +40,7 @@ class _UserDetailsState extends State<UserDetails> {
     });
 
     await userRepository.userDetails().then((value) {
-      UserDetails = value;
+      userDetails = value;
       setControllers();
     }).onError((error, stackTrace) => showErrorDialog(context, error.toString()))
         .whenComplete(() {
@@ -50,11 +53,11 @@ class _UserDetailsState extends State<UserDetails> {
 
   void setControllers() {
     setState(() {
-      txtUserNameController.text = UserDetails.Name;
-      txtUserIdController.text = UserDetails.Username;
-      txtEmailController.text = UserDetails.Email;
-      txtPhoneNumberController.text = UserDetails.Phone_No;
-      txtAddressController.text = UserDetails.Address;
+      txtUserNameController.text = userDetails.Name;
+      txtUserIdController.text = userDetails.Username;
+      txtEmailController.text = userDetails.Email;
+      txtPhoneNumberController.text = userDetails.Phone_No;
+      txtAddressController.text = userDetails.Address;
     });
   }
 
@@ -79,8 +82,8 @@ class _UserDetailsState extends State<UserDetails> {
               ],
             )),
         body: isLoading
-        ? loadingIndicator()
-        : SingleChildScrollView(
+            ? loadingIndicator()
+            : SingleChildScrollView(
           child: Column(
             children: [
               Container(
@@ -129,25 +132,25 @@ class _UserDetailsState extends State<UserDetails> {
               ),
               SizedBox(height: 28),
               Container(
-                padding: EdgeInsets.fromLTRB(20,0,20,0),
-                child: TextFormField(
-                  controller: txtEmailController,
-                  decoration: InputDecoration(
-                    icon: Icon(Icons.email),
-                    labelText: 'Email',
-                    border: OutlineInputBorder(),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blue),
-                    ),
-                    labelStyle: TextStyle(
-                      color: Colors.black,
-                    ),
+                  padding: EdgeInsets.fromLTRB(20,0,20,0),
+                  child: TextFormField(
+                      controller: txtEmailController,
+                      decoration: InputDecoration(
+                        icon: Icon(Icons.email),
+                        labelText: 'Email',
+                        border: OutlineInputBorder(),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue),
+                        ),
+                        labelStyle: TextStyle(
+                          color: Colors.black,
+                        ),
+                      )
                   )
-                )
               ),
               SizedBox(height: 28),
               Container(
-                padding: EdgeInsets.fromLTRB(20,0,20,0),
+                  padding: EdgeInsets.fromLTRB(20,0,20,0),
                   child: TextField(
                     controller: txtPhoneNumberController,
                     decoration: InputDecoration(
@@ -168,7 +171,7 @@ class _UserDetailsState extends State<UserDetails> {
                   )),
               SizedBox(height: 28),
               Container(
-                padding: EdgeInsets.fromLTRB(20,0,20,0),
+                  padding: EdgeInsets.fromLTRB(20,0,20,0),
                   child: TextField(
                       controller: txtAddressController,
                       minLines: 1,
@@ -185,18 +188,18 @@ class _UserDetailsState extends State<UserDetails> {
                           )))),
               SizedBox(height: 38),
               Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                ),
-                width: 100,
-                height: 50,
-                child: TextButton(
-                  onPressed: (){},
-                  child: Text("Save",
-                  style: TextStyle(
-                    color: Colors.black
-                  )),
-                )
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                  ),
+                  width: 100,
+                  height: 50,
+                  child: TextButton(
+                    onPressed: (){},
+                    child: Text("Save",
+                        style: TextStyle(
+                            color: Colors.black
+                        )),
+                  )
               )
 
             ],
