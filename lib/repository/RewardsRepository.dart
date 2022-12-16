@@ -1,5 +1,5 @@
 import 'package:dreamwork/Constant.dart';
-import 'package:dreamwork/response/Rewards.dart';
+import 'package:dreamwork/response/RewardsResponse.dart';
 import 'package:dreamwork/util/HttpClient.dart';
 import 'package:dreamwork/util/Urls.dart';
 

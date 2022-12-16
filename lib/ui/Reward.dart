@@ -50,7 +50,7 @@ class _RewardState extends State<Reward> {
       isLoading = true;
     });
 
-    await RewardsRepository.product().then((value) {
+    await rewardsRepository.product().then((value) {
       RewardsList.clear();
       RewardsList.addAll(value);
     }).onError((error, stackTrace) => showErrorDialog(context, error.toString()))
@@ -61,139 +61,136 @@ class _RewardState extends State<Reward> {
     });
   }
 
-    //get payload
-    //call api
-  }
 
   Widget buildRewardItem(RewardsResponse reward) {
     return Container(
-      padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        color: Colors.white,
-      ),
-      child: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Image.asset(reward.image_url)
-          ),
-          Expanded(
-            flex: 2,
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
-                  width: double.infinity,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 15,
-                        child: Container(
-                          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                          child: Text(
-                            reward.name,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight:
-                              FontWeight.bold,
-                              fontSize: 18,
-                            )
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 8,
-                        child: Container(
-                          padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  child: Text(
-                                    reward.pointNeeded.toString(),
-                                    style: TextStyle(
-                                      fontSize: 15,
-                                    )
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  child: Image.asset(
-                                    reward.coinImage,
-                                    width: 40,
-                                  )
-                                ),
-                              )
-                            ],
-                          )
-                        )
-                      )
-                    ],
-                  )
-                ),
-                SizedBox(height: 8),
-                Container(
-                  padding: EdgeInsets.fromLTRB(0, 0, 80, 0),
-                  child: Text(
-                    reward.description,
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.bold,
-                    )
-                  )
-                ),
-                SizedBox(height: 18),
-                Row(
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: Colors.white,
+        ),
+        child: Row(
+          children: [
+            Expanded(
+                flex: 1,
+                child: Image.asset(reward.image)
+            ),
+            Expanded(
+                flex: 2,
+                child: Column(
                   children: [
                     Container(
-                      child: Column(
-                        children: [
-                          Text("In Stock : "),
-                          Container(
-                            margin: EdgeInsets.fromLTRB(10, 10, 10, 5),
-                            width: 50,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.black),
-                                  color: Colors.white,
+                        padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
+                        width: double.infinity,
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 15,
+                              child: Container(
+                                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                child: Text(
+                                    reward.name,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontWeight:
+                                      FontWeight.bold,
+                                      fontSize: 18,
+                                    )
+                                ),
+                              ),
                             ),
-                            child: TextButton(
-                              onPressed: (){},
-                              child: Text("13",
-                              style: TextStyle(
-                                color: Colors.black
-                              ))
-                            ),
-                          )
-                        ],
-                      )
-                    ),
-                    Container(
-                        height: 40,
-                        width: 70,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.black)
-                        ),
-                        margin: EdgeInsets.fromLTRB(20, 20, 50, 0),
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "GET",
-                            style: TextStyle(
-                              color: Colors.blue,
+                            Expanded(
+                                flex: 8,
+                                child: Container(
+                                    padding: EdgeInsets.fromLTRB(8, 0, 0, 0),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          child: Container(
+                                            child: Text(
+                                                reward.point_to_redeem.toString(),
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                )
+                                            ),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: Container(
+                                              child: Image.asset(
+                                                reward.coinImage,
+                                                width: 40,
+                                              )
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                )
                             )
-                          )
+                          ],
                         )
                     ),
+                    SizedBox(height: 8),
+                    Container(
+                        padding: EdgeInsets.fromLTRB(0, 0, 80, 0),
+                        child: Text(
+                            reward.description,
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                            )
+                        )
+                    ),
+                    SizedBox(height: 18),
+                    Row(
+                      children: [
+                        Container(
+                            child: Column(
+                              children: [
+                                Text("In Stock : "),
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(10, 10, 10, 5),
+                                  width: 50,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black),
+                                    color: Colors.white,
+                                  ),
+                                  child: TextButton(
+                                      onPressed: (){},
+                                      child: Text("13",
+                                          style: TextStyle(
+                                              color: Colors.black
+                                          ))
+                                  ),
+                                )
+                              ],
+                            )
+                        ),
+                        Container(
+                            height: 40,
+                            width: 70,
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.black)
+                            ),
+                            margin: EdgeInsets.fromLTRB(20, 20, 50, 0),
+                            child: TextButton(
+                                onPressed: () {},
+                                child: Text(
+                                    "GET",
+                                    style: TextStyle(
+                                      color: Colors.blue,
+                                    )
+                                )
+                            )
+                        ),
+                      ],
+                    ),
                   ],
-                ),
-              ],
+                )
             )
-          )
-        ],
-      )
+          ],
+        )
     );
   }
 
@@ -230,68 +227,68 @@ class _RewardState extends State<Reward> {
         ),
         body: SafeArea(
           child: isLoading
-            ? loadingIndicator()
-            : SingleChildScrollView(
-                child: Container(
-                  color: Colors.white12,
-                  child: Column(
-                    children: [
-                      Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
-                          child: Text("Rewards",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 23,
-                              ))),
-                      SizedBox(height: 10),
+              ? loadingIndicator()
+              : SingleChildScrollView(
+            child: Container(
+              color: Colors.white12,
+              child: Column(
+                children: [
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                      child: Text("Rewards",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 23,
+                          ))),
+                  SizedBox(height: 10),
 
 
-                      Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                  width: double.infinity,
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                          flex: 10,
-                                          child: Image.asset("Assets/dollar.png")),
-                                      Expanded(
-                                          flex: 18,
-                                          child: Container(
-                                              margin:
-                                              EdgeInsets.fromLTRB(5, 0, 40, 0),
-                                              width: double.infinity,
-                                              child: Column(
-                                                children: const [
-                                                  Text("Your Current Points",
-                                                      style: TextStyle(fontSize: 20)),
-                                                  SizedBox(height: 15),
-                                                  Text(" 300 points",
-                                                      style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 15,
-                                                      ))
-                                                ],
-                                              )))
-                                    ],
-                                  )),
-                              SizedBox(height: 28),
-                              if(RewardsList.isNotEmpty) Column(
-                                  children: RewardsList.map((reward) => buildRewardItem(reward)).toList()
-                              ),
-                              SizedBox(height: 28),
-                            ],
-                          ))
-                    ],
-                  ),
-                ),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.fromLTRB(20, 0, 0, 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                              width: double.infinity,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      flex: 10,
+                                      child: Image.asset("Assets/dollar.png")),
+                                  Expanded(
+                                      flex: 18,
+                                      child: Container(
+                                          margin:
+                                          EdgeInsets.fromLTRB(5, 0, 40, 0),
+                                          width: double.infinity,
+                                          child: Column(
+                                            children: const [
+                                              Text("Your Current Points",
+                                                  style: TextStyle(fontSize: 20)),
+                                              SizedBox(height: 15),
+                                              Text(" 300 points",
+                                                  style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15,
+                                                  ))
+                                            ],
+                                          )))
+                                ],
+                              )),
+                          SizedBox(height: 28),
+                          if(RewardsList.isNotEmpty) Column(
+                              children: RewardsList.map((reward) => buildRewardItem(reward)).toList()
+                          ),
+                          SizedBox(height: 28),
+                        ],
+                      ))
+                ],
+              ),
+            ),
           ),
         )
     );
