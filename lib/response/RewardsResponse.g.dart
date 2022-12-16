@@ -12,6 +12,7 @@ RewardsResponse _$RewardsResponseFromJson(Map<String, dynamic> json) =>
       json['name'] as String,
       json['description'] as String,
       json['point_to_redeem'] as int,
+      json['stock'] as int,
     );
 
 Map<String, dynamic> _$RewardsResponseToJson(RewardsResponse instance) =>
@@ -20,4 +21,5 @@ Map<String, dynamic> _$RewardsResponseToJson(RewardsResponse instance) =>
       'name': instance.name,
       'description': instance.description,
       'pointNeeded': instance.point_to_redeem,
+      'stock': instance.stock,
     };

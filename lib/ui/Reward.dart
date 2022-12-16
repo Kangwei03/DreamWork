@@ -50,7 +50,7 @@ class _RewardState extends State<Reward> {
       isLoading = true;
     });
 
-    await RewardsRepository.product().then((value) {
+    await rewardsRepository.products().then((value) {
       RewardsList.clear();
       RewardsList.addAll(value);
     }).onError((error, stackTrace) => showErrorDialog(context, error.toString()))
@@ -76,7 +76,7 @@ class _RewardState extends State<Reward> {
         children: [
           Expanded(
             flex: 1,
-            child: Image.asset(reward.image_url)
+            child: Image.asset(reward.image)
           ),
           Expanded(
             flex: 2,
@@ -111,7 +111,7 @@ class _RewardState extends State<Reward> {
                               Expanded(
                                 child: Container(
                                   child: Text(
-                                    reward.pointNeeded.toString(),
+                                    reward.point_to_redeem.toString(),
                                     style: TextStyle(
                                       fontSize: 15,
                                     )
@@ -121,7 +121,7 @@ class _RewardState extends State<Reward> {
                               Expanded(
                                 child: Container(
                                   child: Image.asset(
-                                    reward.coinImage,
+                                    "Assets/dollar.png",
                                     width: 40,
                                   )
                                 ),
@@ -161,7 +161,7 @@ class _RewardState extends State<Reward> {
                             ),
                             child: TextButton(
                               onPressed: (){},
-                              child: Text("13",
+                              child: Text(reward.stock.toString(),
                               style: TextStyle(
                                 color: Colors.black
                               ))
@@ -283,7 +283,8 @@ class _RewardState extends State<Reward> {
                                     ],
                                   )),
                               SizedBox(height: 28),
-                              if(RewardsList.isNotEmpty) Column(
+                              if(RewardsList.isNotEmpty)
+                                Column(
                                   children: RewardsList.map((reward) => buildRewardItem(reward)).toList()
                               ),
                               SizedBox(height: 28),

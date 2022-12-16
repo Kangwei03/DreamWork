@@ -1,12 +1,12 @@
 import 'package:dreamwork/Constant.dart';
-import 'package:dreamwork/response/Rewards.dart';
+import 'package:dreamwork/response/RewardsResponse.dart';
 import 'package:dreamwork/util/HttpClient.dart';
 import 'package:dreamwork/util/Urls.dart';
 
 class RewardsRepository {
   final HttpClient _httpClient = HttpClient();
 
-  Future<List<RewardsResponse>> product() async{
+  Future<List<RewardsResponse>> products() async{
     final header = {
       "Authorization": "Bearer ${Constant.userToken}"
     };
