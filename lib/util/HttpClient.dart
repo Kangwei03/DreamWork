@@ -47,7 +47,7 @@ class HttpClient{
       } else if (statusCode == 401) {
         throw Exception(jsonDecode(response.body)['message']);
       } else {
-        throw GenericException(jsonDecode(response.body)['error']['message']);
+        throw GenericException(jsonDecode(response.body)['error']);
       }
     } on SocketException {
       throw Exception('Server Connection Timeout');
@@ -92,7 +92,7 @@ class HttpClient{
       } else if (statusCode == 401) {
         throw Exception(jsonDecode(response.body)['message']);
       } else {
-        throw GenericException(jsonDecode(response.body)['error']['message']);
+        throw GenericException(jsonDecode(response.body)['error']);
       }
     } on SocketException {
       throw Exception('Server Connection Timeout');
@@ -135,7 +135,7 @@ class HttpClient{
       } else if (statusCode == 401) {
         throw Exception(jsonDecode(response.body)['message']);
       } else {
-        throw GenericException(jsonDecode(response.body)['error']['message']);
+        throw GenericException(jsonDecode(response.body)['error']);
       }
     } on SocketException {
       throw Exception('Server Connection Timeout');
@@ -171,7 +171,7 @@ class HttpClient{
         print('unauthorized');
         throw Exception(jsonDecode(response.body)['message']);
       } else {
-        throw GenericException(jsonDecode(response.body)['error']['message']);
+        throw GenericException(jsonDecode(response.body)['error']);
       }
     } on SocketException {
       print('server timeout');

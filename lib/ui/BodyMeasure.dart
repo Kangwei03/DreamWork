@@ -25,7 +25,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
   final txtCalfController = TextEditingController();
 
   //Declaring the response
-  late BodyMeasurementResponse bodyMeasurementResponse;
+  BodyMeasurementResponse bodyMeasurementResponse = BodyMeasurementResponse.defaultEmpty();
 
   //To build a array to store data that get from API
   List<BodyMeasurementResponse> bodyMeasurementList =
@@ -43,7 +43,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
   double bmi = 0;
 
   //Number Format in 1 decimal places.
-  var f = NumberFormat("###.0#", "en_US");
+  var f = NumberFormat("##.#", "en_US");
 
   //Function to check either value height and weight has been filled in or not.
   bool isPassFilled() {
@@ -85,6 +85,18 @@ class _BodyMeasureState extends State<BodyMeasure> {
         .then((value) {
           getBodyMeasurementList.clear();
           getBodyMeasurementList.addAll(value);
+
+          for(BodyMeasurementResponse e in value){
+            DateTime createdDateTime = DateTime.parse(e.created_at);
+            DateTime currentDateTime = DateTime.parse("2022-12-22");
+            print(createdDateTime);
+            if(createdDateTime.year == currentDateTime.year
+                && createdDateTime.month == currentDateTime.month
+                && createdDateTime.day == currentDateTime.day){
+              bodyMeasurementResponse = e;
+              print(e);
+            }
+          }
         })
         .onError(
             (error, stackTrace) => showErrorDialog(context, error.toString()))
@@ -95,22 +107,22 @@ class _BodyMeasureState extends State<BodyMeasure> {
         });
 
     setState(() {
-      //Compulsory data
-      txtHeightController.text = f.format(bodyMeasurementResponse.height);
-      txtWeightController.text = f.format(bodyMeasurementResponse.weight);
+      if(bodyMeasurementResponse != BodyMeasurementResponse.defaultEmpty()){
+        //Compulsory data
+        txtHeightController.text = f.format(bodyMeasurementResponse.height);
+        txtWeightController.text = f.format(bodyMeasurementResponse.weight);
 
-      print("Hello");
-      print(getBodyMeasurementList);
-      //Not compulsory data
-      txtShoulderController.text = f.format(bodyMeasurementResponse.shoulder);
-      txtArmController.text = f.format(bodyMeasurementResponse.arm);
-      txtChestController.text = f.format(bodyMeasurementResponse.chest);
-      txtWaistController.text = f.format(bodyMeasurementResponse.waist);
-      txtHipController.text = f.format(bodyMeasurementResponse.hip);
-      txtTightController.text = f.format(bodyMeasurementResponse.tight);
-      txtCalfController.text = f.format(bodyMeasurementResponse.calf);
+        //Not compulsory data
+        txtShoulderController.text = f.format(bodyMeasurementResponse.shoulder);
+        txtArmController.text = f.format(bodyMeasurementResponse.arm);
+        txtChestController.text = f.format(bodyMeasurementResponse.chest);
+        txtWaistController.text = f.format(bodyMeasurementResponse.waist);
+        txtHipController.text = f.format(bodyMeasurementResponse.hip);
+        txtTightController.text = f.format(bodyMeasurementResponse.tight);
+        txtCalfController.text = f.format(bodyMeasurementResponse.calf);
 
-      bmi = calBmi();
+        bmi = calBmi();
+      }
     });
   }
 

@@ -55,6 +55,21 @@ class BodyMeasurementResponse {
       this.calf,
       this.bmi);
 
+  BodyMeasurementResponse.defaultEmpty({
+    this.id = -1,
+    this.created_at = '',
+    this.weight = 0,
+    this.height = 0,
+    this.shoulder = 0,
+    this.arm = 0,
+    this.chest = 0,
+    this.waist = 0,
+    this.hip = 0,
+    this.tight = 0,
+    this.calf = 0,
+    this.bmi = 0,
+  });
+
   //convert json to object
   factory BodyMeasurementResponse.fromJson(Map<String, dynamic> json) =>
       _$BodyMeasurementResponseFromJson(json);
