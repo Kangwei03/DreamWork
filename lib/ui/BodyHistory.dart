@@ -11,10 +11,12 @@ class BodyHistory extends StatefulWidget {
 
 class _BodyHistoryState extends State<BodyHistory> {
 
+  //To build a array to store the data that get from API
   List<BodyMeasurementResponse> bodyMeasurementList = List.empty(growable: true);
   late BodyMeasurementResponse bodyMeasurementResponse;
 
 
+  //Declaring the function in API
   UserRepository userRepository = UserRepository();
   bool isLoading = false;
 
@@ -38,6 +40,7 @@ class _BodyHistoryState extends State<BodyHistory> {
 
   String selectedParam = '';
 
+  //A widget that let the different data can be show in table form.
   TableRow buildBodyMeasurementItem(BodyMeasurementResponse bodyMeasurement){
     double bodyValue = 0;
 

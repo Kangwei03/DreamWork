@@ -1,4 +1,8 @@
+import 'package:dreamwork/model/addToCartDB.dart';
+import 'package:dreamwork/response/CheckOut.dart';
 import 'package:flutter/material.dart';
+
+import '../model/addToCartModel.dart';
 
 class CheckOut extends StatefulWidget {
   const CheckOut({Key? key}) : super(key: key);
@@ -26,18 +30,169 @@ class _CheckOutState extends State<CheckOut> {
   //variable for calculate total amount before payment
   double totalPrice = 0;
 
+  //To build a array to store data in API
+  List<AddToCart> addToCartList = [];
+  List<CheckOutResponse> checkOutList =
+  List.empty(growable: true);
+  late CheckOutResponse checkOutResponse;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    initView();
+
+    //Function to calculate the product sub total price.
     setState(() {
       price1 = product1.toDouble() * 150.00;
       price2 = product2.toDouble() * 235.00;
       price3 = product3.toDouble() * 25.00;
       price4 = product4.toDouble() * 90.00;
 
+      //Function to calculate the totalPrice.
       totalPrice = price1 + price2 + price3 + price4;
     });
+
+  }
+
+  void initView() async {
+    await DbManager.db.getAddToCart().then((value) {
+      setState(() {
+        addToCartList = value;
+      });
+      print(addToCartList);
+    });
+
+    checkOutList.addAll([
+      CheckOutResponse("Creatine Monohydrate Powder", "Assets/product1.png", 3, 150, 450),
+      CheckOutResponse("Lean Protein Bar", "Assets/product2.png", 2, 235, 470),
+    ]);
+
+
+  }
+
+  //Same as looping.
+  Widget buildCheckOut(CheckOutResponse checkOut){
+    return Container(
+        padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+        decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(width: 1.5, color: Colors.black),
+              bottom: BorderSide(width: 1.5, color: Colors.black),
+            )),
+        width: MediaQuery.of(context).size.width,
+        height: 250,
+        child: Row(
+          children: [
+            Expanded(child: Image.asset(checkOut.image_url)),
+            Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(checkOut.productName,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                        )),
+                    SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                child: Text("   Amount : ",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    )),
+                              ),
+                              SizedBox(height: 5),
+                              Container(
+                                  alignment: Alignment.topLeft,
+                                  margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
+                                  height: 40,
+                                  child: Container(
+                                    margin:
+                                    EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                    decoration: BoxDecoration(
+                                      border:
+                                      Border.all(color: Colors.black),
+                                    ),
+                                    child: TextButton(
+                                      onPressed: () {},
+                                      child: Text(checkOut.amount.toString(),
+                                          style: TextStyle(
+                                              color: Colors.black)),
+                                    ),
+                                  )),
+                              SizedBox(height: 5),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              Container(
+                                width: double.infinity,
+                                child: Text("   Price : ",
+                                    textAlign: TextAlign.left,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    )),
+                              ),
+                              SizedBox(height: 5),
+                              Container(
+                                  alignment: Alignment.topLeft,
+                                  margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
+                                  height: 40,
+                                  child: Container(
+                                    margin:
+                                    EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                    decoration: BoxDecoration(
+                                      border:
+                                      Border.all(color: Colors.black),
+                                    ),
+                                    child: TextButton(
+                                      onPressed: () {},
+                                      child: Text(checkOut.price.toString(),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 10)),
+                                    ),
+                                  )),
+                              SizedBox(height: 5),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 28),
+                    Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          children: [
+                            Text("Total : ",
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                )),
+                            Text("RM " + checkOut.totalPrice.toString(),
+                                style: TextStyle(
+                                  fontSize: 18,
+                                )),
+                          ],
+                        )
+                    )
+                  ],
+                )),
+          ],
+        ));
   }
 
   @override
@@ -78,490 +233,11 @@ class _CheckOutState extends State<CheckOut> {
                   fontWeight: FontWeight.bold,
                 )),
             SizedBox(height: 28),
-            Container(
-                padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                decoration: BoxDecoration(
-                    border: Border(
-                  top: BorderSide(width: 1.5, color: Colors.black),
-                  bottom: BorderSide(width: 1.5, color: Colors.black),
-                )),
-                width: MediaQuery.of(context).size.width,
-                height: 250,
-                child: Row(
-                  children: [
-                    Expanded(child: Image.asset("Assets/product1.png")),
-                    Expanded(
-                        child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text("Creatine Monohydrate \n Powder",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            )),
-                        SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    width: double.infinity,
-                                    child: Text("   Amount : ",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15,
-                                        )),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Container(
-                                      alignment: Alignment.topLeft,
-                                      margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
-                                      height: 40,
-                                      child: Container(
-                                        margin:
-                                            EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                        decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: Colors.black),
-                                        ),
-                                        child: TextButton(
-                                          onPressed: () {},
-                                          child: Text("$product1",
-                                              style: TextStyle(
-                                                  color: Colors.black)),
-                                        ),
-                                      )),
-                                  SizedBox(height: 5),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              child: Column(
-                                children: [
-                                  Container(
-                                    width: double.infinity,
-                                    child: Text("   Price : ",
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 15,
-                                        )),
-                                  ),
-                                  SizedBox(height: 5),
-                                  Container(
-                                      alignment: Alignment.topLeft,
-                                      margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
-                                      height: 40,
-                                      child: Container(
-                                        margin:
-                                            EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                        decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: Colors.black),
-                                        ),
-                                        child: TextButton(
-                                          onPressed: () {},
-                                          child: Text("RM 150.00",
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 10)),
-                                        ),
-                                      )),
-                                  SizedBox(height: 5),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 28),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          child: Row(
-                            children: [
-                              Text("Total : ",
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              )),
-                              Text("RM $price1",
-                              style: TextStyle(
-                                fontSize: 18,
-                              )),
-                            ],
-                          )
-                        )
-                      ],
-                    )),
-                  ],
-                )),
-            SizedBox(height: 28),
-            Container(
-                padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(width: 1.5, color: Colors.black),
-                    )),
-                width: MediaQuery.of(context).size.width,
-                height: 250,
-                child: Row(
-                  children: [
-                    Expanded(
-                        flex: 9,
-                        child: Image.asset("Assets/product2.png")),
-                    Expanded(
-                      flex: 10,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text("Lean Protein\n Bar",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                )),
-                            SizedBox(height: 10),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        width: double.infinity,
-                                        child: Text("   Amount : ",
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15,
-                                            )),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Container(
-                                          alignment: Alignment.topLeft,
-                                          margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
-                                          height: 40,
-                                          child: Container(
-                                            margin:
-                                            EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                            decoration: BoxDecoration(
-                                              border:
-                                              Border.all(color: Colors.black),
-                                            ),
-                                            child: TextButton(
-                                              onPressed: () {},
-                                              child: Text("$product2",
-                                                  style: TextStyle(
-                                                      color: Colors.black)),
-                                            ),
-                                          )),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        width: double.infinity,
-                                        child: Text("   Price : ",
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15,
-                                            )),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Container(
-                                          alignment: Alignment.topLeft,
-                                          margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
-                                          height: 40,
-                                          child: Container(
-                                            margin:
-                                            EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                            decoration: BoxDecoration(
-                                              border:
-                                              Border.all(color: Colors.black),
-                                            ),
-                                            child: TextButton(
-                                              onPressed: () {},
-                                              child: Text("RM 235.00",
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 10)),
-                                            ),
-                                          )),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 28),
-                            Container(
-                              padding: EdgeInsets.fromLTRB(10,0,0,0),
-                                width: MediaQuery.of(context).size.width,
-                                child: Row(
-                                  children: [
-                                    Text("Total : ",
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                        )),
-                                    Text("RM $price2",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                        )),
-                                  ],
-                                )
-                            )
-                          ],
-                        )),
-                  ],
-                )),
-            SizedBox(height: 28),
-            Container(
-                padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(width: 1.5, color: Colors.black),
-                    )),
-                width: MediaQuery.of(context).size.width,
-                height: 250,
-                child: Row(
-                  children: [
-                    Expanded(child: Image.asset("Assets/product3.png")),
-                    Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text("Chunky Peanut \n Butter",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                )),
-                            SizedBox(height: 10),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        width: double.infinity,
-                                        child: Text("   Amount : ",
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15,
-                                            )),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Container(
-                                          alignment: Alignment.topLeft,
-                                          margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
-                                          height: 40,
-                                          child: Container(
-                                            margin:
-                                            EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                            decoration: BoxDecoration(
-                                              border:
-                                              Border.all(color: Colors.black),
-                                            ),
-                                            child: TextButton(
-                                              onPressed: () {},
-                                              child: Text("$product3",
-                                                  style: TextStyle(
-                                                      color: Colors.black)),
-                                            ),
-                                          )),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        width: double.infinity,
-                                        child: Text("   Price : ",
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15,
-                                            )),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Container(
-                                          alignment: Alignment.topLeft,
-                                          margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
-                                          height: 40,
-                                          child: Container(
-                                            margin:
-                                            EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                            decoration: BoxDecoration(
-                                              border:
-                                              Border.all(color: Colors.black),
-                                            ),
-                                            child: TextButton(
-                                              onPressed: () {},
-                                              child: Text("RM 25.00",
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 10)),
-                                            ),
-                                          )),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 28),
-                            Container(
-                                width: MediaQuery.of(context).size.width,
-                                child: Row(
-                                  children: [
-                                    Text("Total : ",
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                        )),
-                                    Text("RM $price3",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                        )),
-                                  ],
-                                )
-                            )
-                          ],
-                        )),
-                  ],
-                )),
-            SizedBox(height: 28),
-            Container(
-                padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(width: 1.5, color: Colors.black),
-                    )),
-                width: MediaQuery.of(context).size.width,
-                height: 250,
-                child: Row(
-                  children: [
-                    Expanded(child: Image.asset("Assets/product4.png")),
-                    Expanded(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text("100% Instant Oats\n",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                )),
-                            SizedBox(height: 10),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        width: double.infinity,
-                                        child: Text("   Amount : ",
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15,
-                                            )),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Container(
-                                          alignment: Alignment.topLeft,
-                                          margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
-                                          height: 40,
-                                          child: Container(
-                                            margin:
-                                            EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                            decoration: BoxDecoration(
-                                              border:
-                                              Border.all(color: Colors.black),
-                                            ),
-                                            child: TextButton(
-                                              onPressed: () {},
-                                              child: Text("$product4",
-                                                  style: TextStyle(
-                                                      color: Colors.black)),
-                                            ),
-                                          )),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        width: double.infinity,
-                                        child: Text("   Price : ",
-                                            textAlign: TextAlign.left,
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15,
-                                            )),
-                                      ),
-                                      SizedBox(height: 5),
-                                      Container(
-                                          alignment: Alignment.topLeft,
-                                          margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
-                                          height: 40,
-                                          child: Container(
-                                            margin:
-                                            EdgeInsets.fromLTRB(10, 0, 0, 0),
-                                            decoration: BoxDecoration(
-                                              border:
-                                              Border.all(color: Colors.black),
-                                            ),
-                                            child: TextButton(
-                                              onPressed: () {},
-                                              child: Text("RM 90.00",
-                                                  style: TextStyle(
-                                                      color: Colors.black,
-                                                      fontSize: 10)),
-                                            ),
-                                          )),
-                                      SizedBox(height: 5),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 28),
-                            Container(
-                                width: MediaQuery.of(context).size.width,
-                                child: Row(
-                                  children: [
-                                    Text("Total : ",
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                        )),
-                                    Text("RM $price4",
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                        )),
-                                  ],
-                                )
-                            ),
-                          ],
-                        )),
-                  ],
-                )),
+            //The ways to do mapping
+            if(checkOutList.isNotEmpty)
+              Column(
+                children: checkOutList.map((checkOut) => buildCheckOut(checkOut)).toList()
+            ),
             SizedBox(height: 28),
             Container(
               width: MediaQuery.of(context).size.width,
@@ -590,7 +266,7 @@ class _CheckOutState extends State<CheckOut> {
                        width: MediaQuery.of(context).size.width,
                        child: TextButton(
                            onPressed: (){
-                             Navigator.pushNamed(context, "payment");
+                             Navigator.pushNamed(context, "payment", arguments: checkOutList);
                            },
                            child: Text("Proceed",
                                textAlign: TextAlign.center,

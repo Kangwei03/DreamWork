@@ -21,6 +21,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   final txtEmailController = TextEditingController();
   final txtVerificationController = TextEditingController();
 
+  //Function to check the email box cannot be empty.
   bool isPassFilled() {
     if (txtEmailController.text != "") {
       return true;

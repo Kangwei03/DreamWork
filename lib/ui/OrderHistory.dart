@@ -17,7 +17,7 @@ class _OrderHistoryState extends State<OrderHistory> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: [Text("DreamWork")],
+              children: const [Text("DreamWork")],
             )),
         body: SingleChildScrollView(
             child: Column(

@@ -7,4 +7,5 @@ class Urls {
   static const invoice = "/api/order";
   static const logOut = "/api/logout";
   static const userDetails = "/api/get_user";
+  static const getBodyMeasurement = "/api/get-record";
 }

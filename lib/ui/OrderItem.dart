@@ -1,12 +1,16 @@
 import 'package:dreamwork/Constant.dart';
+import 'package:dreamwork/model/addToCartModel.dart';
 import 'package:dreamwork/response/ProductResponse.dart';
 import 'package:flutter/material.dart';
 import 'package:quantity_input/quantity_input.dart';
 
+import '../model/addToCartDB.dart';
+
 class OrderItem extends StatefulWidget {
   final ProductResponse product;
   final String title;
-  const OrderItem({Key? key, required this.product, required this.title}) : super(key: key);
+  const OrderItem({Key? key, required this.product, required this.title})
+      : super(key: key);
 
   @override
   State<OrderItem> createState() => _OrderItemState();
@@ -14,23 +18,37 @@ class OrderItem extends StatefulWidget {
 
 class _OrderItemState extends State<OrderItem> {
   static const IconData shopping_cart =
-  IconData(0xe59c, fontFamily: 'MaterialIcons');
+      IconData(0xe59c, fontFamily: 'MaterialIcons');
   int _itemCount = 0;
+
+  List<AddToCart> addToCartList = [];
+
+  void initState() {
+    super.initState();
+    initView();
+  }
+
+  void initView() async {
+    DbManager.db.getAddToCart().then((value) {
+      setState(() {
+        addToCartList = value;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(0, 0, 0, 28),
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 28),
         width: MediaQuery.of(context).size.width,
         child: Row(
           children: [
             Expanded(
                 child: Container(
-                  padding: EdgeInsets.all(10),
-                  //child: Image.asset(widget.product.image_url),
-                  child: Image.network(Constant.hostUrl + widget.product.image_url),
-                )
-            ),
+              padding: EdgeInsets.all(10),
+              //child: Image.asset(widget.product.image_url),
+              child: Image.network(Constant.hostUrl + widget.product.image_url),
+            )),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -42,8 +60,7 @@ class _OrderItemState extends State<OrderItem> {
                         fontSize: 18,
                       )),
                   SizedBox(height: 8),
-                  Text(
-                      widget.product.description,
+                  Text(widget.product.description,
                       style: TextStyle(
                         fontSize: 12,
                       )),
@@ -65,21 +82,17 @@ class _OrderItemState extends State<OrderItem> {
                             SizedBox(height: 5),
                             Container(
                                 alignment: Alignment.topLeft,
-                                margin:
-                                EdgeInsets.fromLTRB(0, 8, 0, 10),
+                                margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
                                 height: 40,
                                 child: Container(
-                                  margin: EdgeInsets.fromLTRB(
-                                      10, 0, 0, 0),
+                                  margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                                   decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.black),
+                                    border: Border.all(color: Colors.black),
                                   ),
                                   child: TextButton(
                                     onPressed: () {},
                                     child: Text("250g",
-                                        style: TextStyle(
-                                            color: Colors.black)),
+                                        style: TextStyle(color: Colors.black)),
                                   ),
                                 )),
                             SizedBox(height: 5),
@@ -101,22 +114,19 @@ class _OrderItemState extends State<OrderItem> {
                             SizedBox(height: 5),
                             Container(
                                 alignment: Alignment.topLeft,
-                                margin:
-                                EdgeInsets.fromLTRB(0, 8, 0, 10),
+                                margin: EdgeInsets.fromLTRB(0, 8, 0, 10),
                                 height: 40,
                                 child: Container(
-                                  margin: EdgeInsets.fromLTRB(
-                                      10, 0, 0, 0),
+                                  margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
                                   decoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: Colors.black),
+                                    border: Border.all(color: Colors.black),
                                   ),
                                   child: TextButton(
                                     onPressed: () {},
-                                    child: Text("RM " + widget.product.price.toString(),
+                                    child: Text(
+                                        "RM " + widget.product.price.toString(),
                                         style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 10)),
+                                            color: Colors.black, fontSize: 10)),
                                   ),
                                 )),
                             SizedBox(height: 5),
@@ -145,9 +155,8 @@ class _OrderItemState extends State<OrderItem> {
                             buttonColor: Colors.black,
                             inputWidth: 45,
                             value: _itemCount,
-                            onChanged: (value) => setState(() =>
-                            _itemCount = int.parse(
-                                value.replaceAll(',', ''))),
+                            onChanged: (value) => setState(() => _itemCount =
+                                int.parse(value.replaceAll(',', ''))),
                           ),
                         ),
                         Expanded(
@@ -155,8 +164,53 @@ class _OrderItemState extends State<OrderItem> {
                             child: IconButton(
                               icon: Icon(shopping_cart),
                               onPressed: () {
+                                int id = 0;
+                                final String productName = widget.product.name;
+                                final int quantity = _itemCount;
+                                bool isFound = false;
+
+                                if (addToCartList.isNotEmpty) {
+                                  for (int i = 0;
+                                      i < addToCartList.length && !isFound;
+                                      i++) {
+                                    if (addToCartList[i].productName ==
+                                        widget.product.name) {
+                                      print('update ${widget.product.name}');
+
+                                      print('update with id ${addToCartList[i].id}');
+                                      var addToCart = AddToCart(
+                                          id: addToCartList[i].id,
+                                          productName: productName,
+                                          quantity: quantity + addToCartList[i].quantity);
+                                      DbManager.db
+                                          .updateAddToCart(addToCart)
+                                          .whenComplete(() => initView());
+                                      isFound = true;
+                                    }
+
+                                  }
+                                  if(!isFound){
+                                    print('insert ${widget.product.name}');
+                                    var addToCart = AddToCart(
+                                        productName: productName,
+                                        quantity: quantity);
+                                    DbManager.db
+                                        .insertAddToCart(addToCart)
+                                        .whenComplete(() => initView());
+                                  }
+                                } else {
+                                  var addToCart = AddToCart(
+                                      productName: productName,
+                                      quantity: quantity);
+                                  DbManager.db
+                                      .insertAddToCart(addToCart)
+                                      .whenComplete(() => initView());
+                                }
+
                                 print('Product Name: ${widget.product.name}');
                                 print('Quantity: $_itemCount');
+
+                                print(addToCartList);
                               },
                             ))
                       ],

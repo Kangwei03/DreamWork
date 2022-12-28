@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
 
   String user1 = "Hello1";
 
+  //Declaring for using function in API
   LogOutRepository logOutRepository = LogOutRepository();
   UserRepository userRepository = UserRepository();
   bool isLoading = false;
@@ -228,7 +229,8 @@ class _HomePageState extends State<HomePage> {
                                 },
                                 child: Text("Body Health",
                                     style: TextStyle(
-                                      color: Colors.black,
+                                      color: Colors.white,
+                                      fontSize: 20,
                                     )),
                               ),
                             ),
@@ -245,7 +247,8 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: Text("Rewards",
                                         style: TextStyle(
-                                          color: Colors.black,
+                                          color: Colors.white,
+                                          fontSize: 20,
                                         )))),
                             SizedBox(height: 28),
                             Container(
@@ -260,7 +263,8 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: Text("Order",
                                         style: TextStyle(
-                                          color: Colors.black,
+                                          color: Colors.white,
+                                          fontSize: 20,
                                         )))),
                             SizedBox(height: 28),
                             Container(
@@ -276,7 +280,8 @@ class _HomePageState extends State<HomePage> {
                                     },
                                     child: Text("Order History",
                                         style: TextStyle(
-                                          color: Colors.black,
+                                          color: Colors.white,
+                                          fontSize: 20,
                                         ))))
                           ],
                         ))

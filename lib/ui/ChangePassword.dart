@@ -8,6 +8,7 @@ class ChangePassword extends StatefulWidget {
 }
 
 class _ChangePasswordState extends State<ChangePassword> {
+
   bool showUserPassword = false;
   bool showUserConfirmPassword = false;
   bool buttonEnabled = false;
@@ -15,6 +16,8 @@ class _ChangePasswordState extends State<ChangePassword> {
   final txtPasswordController = TextEditingController();
   final txtConfirmPasswordController = TextEditingController();
 
+  //Function to check whether the password and the confirm password are same
+  //or not.
   bool isPassFilled() {
     if (txtPasswordController.text != "" &&
         txtConfirmPasswordController.text != "") {

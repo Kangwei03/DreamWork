@@ -1,11 +1,16 @@
 import 'package:dreamwork/repository/InvoiceRepository.dart';
 import 'package:dreamwork/repository/UserRepository.dart';
+import 'package:dreamwork/response/CheckOut.dart';
 import 'package:dreamwork/response/InvoiceResponse.dart';
 import 'package:dreamwork/util/Widgets.dart';
 import 'package:flutter/material.dart';
 
+import '../response/userPoints.dart';
+
 class Invoice extends StatefulWidget {
-  const Invoice({Key? key}) : super(key: key);
+  final List<CheckOutResponse> invoiceList;
+
+  const Invoice({Key? key, required this.invoiceList}) : super(key: key);
 
   @override
   State<Invoice> createState() => _InvoiceState();
@@ -20,8 +25,8 @@ class _InvoiceState extends State<Invoice> {
 
   bool isLoading = false;
 
-  List<InvoiceResponse> InvoiceList =
-  List.empty(growable: true);
+  //To build the array to store the data get from API
+  List<InvoiceResponse> InvoiceList = List.empty(growable: true);
   late InvoiceResponse invoiceResponse;
 
   void initView() async {
@@ -29,17 +34,22 @@ class _InvoiceState extends State<Invoice> {
       isLoading = true;
     });
 
-    await invoiceRepository.invoice().then((value) {
-      InvoiceList.clear();
-      InvoiceList.addAll(value);
-    }).onError((error, stackTrace) => showErrorDialog(context, error.toString()))
+    await invoiceRepository
+        .invoice()
+        .then((value) {
+          InvoiceList.clear();
+          InvoiceList.addAll(value);
+        })
+        .onError(
+            (error, stackTrace) => showErrorDialog(context, error.toString()))
         .whenComplete(() {
-      setState(() {
-        isLoading = false;
-      });
-    });
+          setState(() {
+            isLoading = false;
+          });
+        });
   }
 
+  //Same as looping
   Widget buildProductList(InvoiceResponse i) {
     return Container(
         padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
@@ -188,213 +198,220 @@ class _InvoiceState extends State<Invoice> {
           )),
         ),
         body: isLoading
-    ? loadingIndicator()
-    : SingleChildScrollView(
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
-                  width: MediaQuery.of(context).size.width,
-                  child: Text("Invoice",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                      )),
-                ),
-                SizedBox(height: 28),
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: TextFormField(
-                      readOnly: true,
-                      controller: txtUserIdController,
-                      decoration: InputDecoration(
-                        icon: Icon(Icons.person_outlined),
-                        labelText: 'User Id',
-                        border: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.black,
-                        ),
-                      )),
-                ),
-                SizedBox(height: 28),
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: TextFormField(
-                      maxLines: 3,
-                      readOnly: true,
-                      controller: txtAddressController,
-                      decoration: InputDecoration(
-                        icon: Icon(Icons.location_city_outlined),
-                        labelText: 'Address',
-                        border: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.black,
-                        ),
-                      )),
-                ),
-                SizedBox(height: 28),
-                Container(
-                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: TextFormField(
-                      readOnly: true,
-                      controller: txtDateController,
-                      decoration: InputDecoration(
-                        icon: Icon(Icons.calendar_month),
-                        labelText: 'Order Date',
-                        border: OutlineInputBorder(),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.blue),
-                        ),
-                        labelStyle: TextStyle(
-                          color: Colors.black,
-                        ),
-                      )),
-                ),
-                SizedBox(height: 28),
-                Container(
-                    padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
-                    child: Text("Product",
+            ? loadingIndicator()
+            : SingleChildScrollView(
+                child: Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
+                    width: MediaQuery.of(context).size.width,
+                    child: Text("Invoice",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                        ))),
-                SizedBox(height: 13),
-        Column(
-             children: InvoiceList.map((reward) => buildProductList(reward)).toList()),
-                Container(
+                          fontSize: 24,
+                        )),
+                  ),
+                  SizedBox(height: 28),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: TextFormField(
+                        readOnly: true,
+                        controller: txtUserIdController,
+                        decoration: InputDecoration(
+                          icon: Icon(Icons.person_outlined),
+                          labelText: 'User Id',
+                          border: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          labelStyle: TextStyle(
+                            color: Colors.black,
+                          ),
+                        )),
+                  ),
+                  SizedBox(height: 28),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: TextFormField(
+                        maxLines: 3,
+                        readOnly: true,
+                        controller: txtAddressController,
+                        decoration: InputDecoration(
+                          icon: Icon(Icons.location_city_outlined),
+                          labelText: 'Address',
+                          border: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          labelStyle: TextStyle(
+                            color: Colors.black,
+                          ),
+                        )),
+                  ),
+                  SizedBox(height: 28),
+                  Container(
+                    padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: TextFormField(
+                        readOnly: true,
+                        controller: txtDateController,
+                        decoration: InputDecoration(
+                          icon: Icon(Icons.calendar_month),
+                          labelText: 'Order Date',
+                          border: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.blue),
+                          ),
+                          labelStyle: TextStyle(
+                            color: Colors.black,
+                          ),
+                        )),
+                  ),
+                  SizedBox(height: 28),
+                  Container(
+                      padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
+                      child: Text("Product",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                          ))),
+                  SizedBox(height: 13),
+                  //Ways to do the mapping.
+                  Column(
+                      children:
+                          InvoiceList.map((reward) => buildProductList(reward))
+                              .toList()),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        border: Border(bottom: BorderSide(color: Colors.black)),
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                              width: MediaQuery.of(context).size.width,
+                              padding: EdgeInsets.fromLTRB(10, 20, 0, 15),
+                              child: Text("SUMMARY",
+                                  textAlign: TextAlign.start,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ))),
+                          Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
+                                child: Text("Sub Total : ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    )),
+                              ),
+                              Container(
+                                  width: 280,
+                                  child:
+                                      Text("RM 30", textAlign: TextAlign.end))
+                            ],
+                          ),
+                          SizedBox(height: 18),
+                          Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+                                child: Text("Delivery Fee : ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    )),
+                              ),
+                              Container(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 27, 0),
+                                  width: 280,
+                                  child: Text("RM 4", textAlign: TextAlign.end))
+                            ],
+                          ),
+                          SizedBox(height: 18),
+                          Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
+                                child: Text("Points Earned : ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    )),
+                              ),
+                              Container(
+                                  padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
+                                  width: 260,
+                                  //points need to calculate again by
+                                  //using the totalPurchase * 0.01 as the point earn.
+                                  child: Text("200",
+                                      textAlign: TextAlign.end,
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                      ))),
+                            ],
+                          ),
+                          SizedBox(height: 18),
+                          Row(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
+                                child: Text("Total : ",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15,
+                                    )),
+                              ),
+                              Container(
+                                  padding: EdgeInsets.fromLTRB(40, 0, 22, 0),
+                                  width: 330,
+                                  child:
+                                      Text("RM 34", textAlign: TextAlign.end)),
+                            ],
+                          ),
+                          SizedBox(height: 18),
+                        ],
+                      )),
+                  SizedBox(height: 28),
+                  Container(
                     width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      border: Border(bottom: BorderSide(color: Colors.black)),
-                    ),
-                    child: Column(
+                    padding: EdgeInsets.fromLTRB(40, 0, 15, 20),
+                    margin: EdgeInsets.fromLTRB(40, 0, 25, 10),
+                    child: Row(
                       children: [
                         Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.fromLTRB(10, 20, 0, 15),
-                            child: Text("SUMMARY",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ))),
-                        Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                              child: Text("Sub Total : ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                  )),
+                            width: 100,
+                            height: 50,
+                            margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
                             ),
-                            Container(
-                                width: 280,
-                                child: Text("RM 30", textAlign: TextAlign.end))
-                          ],
-                        ),
-                        SizedBox(height: 18),
-                        Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.fromLTRB(10, 10, 0, 10),
-                              child: Text("Delivery Fee : ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                  )),
-                            ),
-                            Container(
-                                padding: EdgeInsets.fromLTRB(0, 0, 27, 0),
-                                width: 280,
-                                child: Text("RM 4", textAlign: TextAlign.end))
-                          ],
-                        ),
-                        SizedBox(height: 18),
-                        Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
-                              child: Text("Points Earned : ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                  )),
-                            ),
-                            Container(
-                                padding: EdgeInsets.fromLTRB(0, 0, 20, 0),
-                                width: 260,
-                                //points need to calculate again by
-                                //using the totalPurchase * 0.01 as the point earn.
-                                child: Text("200",
-                                    textAlign: TextAlign.end,
+                            child: TextButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, "homePage");
+                                },
+                                child: Text("Proceed",
                                     style: TextStyle(
-                                      fontSize: 15,
-                                    ))),
-                          ],
-                        ),
-                        SizedBox(height: 18),
-                        Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
-                              child: Text("Total : ",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15,
-                                  )),
+                                      color: Colors.black,
+                                    )))),
+                        Container(
+                            margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                            width: 100,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black),
                             ),
-                            Container(
-                                padding: EdgeInsets.fromLTRB(40, 0, 22, 0),
-                                width: 330,
-                                child: Text("RM 34", textAlign: TextAlign.end)),
-                          ],
-                        ),
-                        SizedBox(height: 18),
+                            child: TextButton(
+                                onPressed: () {},
+                                child: Text("Print",
+                                    style: TextStyle(color: Colors.black)))),
                       ],
-                    )),
-                SizedBox(height: 28),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.fromLTRB(40, 0, 15, 20),
-                  margin: EdgeInsets.fromLTRB(40, 0, 25, 10),
-                  child: Row(
-                    children: [
-                      Container(
-                          width: 100,
-                          height: 50,
-                          margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black),
-                          ),
-                          child: TextButton(
-                              onPressed: () {},
-                              child: Text("Proceed",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                  )))),
-                      Container(
-                          margin: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                          width: 100,
-                          height: 50,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black),
-                          ),
-                          child: TextButton(
-                              onPressed: () {},
-                              child: Text("Print",
-                                  style: TextStyle(color: Colors.black)))),
-                    ],
-                  ),
-                )
-              ],
-            )));
+                    ),
+                  )
+                ],
+              )));
   }
 }

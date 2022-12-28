@@ -11,6 +11,7 @@ class _DeleteAccountState extends State<DeleteAccount> {
   bool buttonEnabled = false;
   bool showUserPassword = false;
 
+  //Default confirm select button
   String? confirm = "No";
 
   final txtPasswordController = TextEditingController();

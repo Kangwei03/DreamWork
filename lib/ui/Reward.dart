@@ -1,3 +1,4 @@
+import 'package:dreamwork/Constant.dart';
 import 'package:dreamwork/repository/RewardsRepository.dart';
 import 'package:dreamwork/repository/UserRepository.dart';
 import 'package:dreamwork/response/RewardsResponse.dart';
@@ -50,7 +51,8 @@ class _RewardState extends State<Reward> {
       isLoading = true;
     });
 
-    await rewardsRepository.product().then((value) {
+    //push the data get from API into the array has be build.
+    await rewardsRepository.products().then((value) {
       RewardsList.clear();
       RewardsList.addAll(value);
     }).onError((error, stackTrace) => showErrorDialog(context, error.toString()))
@@ -61,7 +63,7 @@ class _RewardState extends State<Reward> {
     });
   }
 
-
+  //Same as looping
   Widget buildRewardItem(RewardsResponse reward) {
     return Container(
         padding: EdgeInsets.fromLTRB(0, 0, 0, 20),
@@ -73,14 +75,14 @@ class _RewardState extends State<Reward> {
           children: [
             Expanded(
                 flex: 1,
-                child: Image.asset(reward.image)
+                child: Image.network(Constant.hostUrl + reward.image)
             ),
             Expanded(
                 flex: 2,
                 child: Column(
                   children: [
                     Container(
-                        padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
+                        padding: EdgeInsets.fromLTRB(10, 0, 50, 0),
                         width: double.infinity,
                         child: Row(
                           children: [
@@ -118,7 +120,7 @@ class _RewardState extends State<Reward> {
                                         Expanded(
                                           child: Container(
                                               child: Image.asset(
-                                                reward.coinImage,
+                                                "Assets/dollar.png",
                                                 width: 40,
                                               )
                                           ),
@@ -132,7 +134,7 @@ class _RewardState extends State<Reward> {
                     ),
                     SizedBox(height: 8),
                     Container(
-                        padding: EdgeInsets.fromLTRB(0, 0, 80, 0),
+                        padding: EdgeInsets.fromLTRB(20, 0, 80, 0),
                         child: Text(
                             reward.description,
                             style: TextStyle(
@@ -145,9 +147,13 @@ class _RewardState extends State<Reward> {
                     Row(
                       children: [
                         Container(
+                          padding: EdgeInsets.fromLTRB(10,0,0,0),
                             child: Column(
                               children: [
-                                Text("In Stock : "),
+                                Text("Stock : ",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold
+                                )),
                                 Container(
                                   margin: EdgeInsets.fromLTRB(10, 10, 10, 5),
                                   width: 50,
@@ -158,7 +164,7 @@ class _RewardState extends State<Reward> {
                                   ),
                                   child: TextButton(
                                       onPressed: (){},
-                                      child: Text("13",
+                                      child: Text(reward.stock.toString(),
                                           style: TextStyle(
                                               color: Colors.black
                                           ))
@@ -193,6 +199,7 @@ class _RewardState extends State<Reward> {
         )
     );
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -280,6 +287,7 @@ class _RewardState extends State<Reward> {
                                 ],
                               )),
                           SizedBox(height: 28),
+                          //Check if the rewards list got things, it will display.
                           if(RewardsList.isNotEmpty) Column(
                               children: RewardsList.map((reward) => buildRewardItem(reward)).toList()
                           ),

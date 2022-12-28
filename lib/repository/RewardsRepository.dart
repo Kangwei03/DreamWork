@@ -11,15 +11,13 @@ class RewardsRepository {
       "Authorization": "Bearer ${Constant.userToken}"
     };
 
-    print(header);
-
     final Map<String,dynamic> result = await _httpClient.getRequest(Urls.rewards, <String,dynamic>{}, header: header);
 
     if(result.isEmpty){
       throw Exception('Empty data from API');
     }
 
-    List<dynamic> resultData = result['rewards_details'];
+    List<dynamic> resultData = result['reward_details'];
 
     return resultData.map((value) => RewardsResponse.fromJson(value)).toList();
   }

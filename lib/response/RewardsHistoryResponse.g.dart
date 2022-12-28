@@ -7,14 +7,17 @@ part of 'RewardsHistoryResponse.dart';
 // **************************************************************************
 
 RewardsHistoryResponse _$RewardsHistoryResponseFromJson(
-        Map<String, dynamic> json) =>
-    RewardsHistoryResponse(
-      json['image'] as String,
-      json['name'] as String,
-      json['points'] as int,
-      DateTime.parse(json['redeemDate'] as String),
-      json['status'] as String,
-    );
+        Map<String, dynamic> json) {
+     return RewardsHistoryResponse(
+           json['image'] as String,
+           json['name'] as String,
+           json['points'] as int,
+           DateTime.parse(json['redeemDate'] as String),
+           json['status'] as String,
+
+     );
+}
+
 
 Map<String, dynamic> _$RewardsHistoryResponseToJson(
         RewardsHistoryResponse instance) =>

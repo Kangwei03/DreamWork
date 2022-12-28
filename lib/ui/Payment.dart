@@ -1,8 +1,12 @@
+import 'package:dreamwork/response/CheckOut.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../response/UserPoints.dart';
+
 class Payment extends StatefulWidget {
-  const Payment({Key? key}) : super(key: key);
+  final List<CheckOutResponse> checkoutList;
+  const Payment({Key? key, required this.checkoutList}) : super(key: key);
 
   @override
   State<Payment> createState() => _PaymentState();
@@ -33,8 +37,10 @@ class _PaymentState extends State<Payment> {
   bool buttonEnabled = false;
   bool showUserPassword = false;
 
+  //Default drop down value is nothing.
   String? dropDownValue;
 
+  //The value in the drop down box.
   var items = [
     'Public Bank',
     'Maybank',
@@ -42,6 +48,94 @@ class _PaymentState extends State<Payment> {
     'Citi Bank',
     'Hong Leong Bank'
   ];
+
+  //To build a array to store the data get from API
+  List<CheckOutResponse> checkOutList = List.empty(growable: true);
+  late CheckOutResponse checkOutResponse;
+
+  double totalPrice = 0;
+  double total = 0;
+
+  void initView() async {
+    checkOutList.addAll(widget.checkoutList);
+    double totalSub = 0;
+
+    //Function to calculate the Sub total.
+    for (int i = 0; i < checkOutList.length; i++) {
+      totalSub += checkOutList[i].price * checkOutList[i].amount;
+    }
+
+
+    setState(() {
+      totalPrice = totalSub;
+      total = totalSub + 4;
+    });
+  }
+
+  void initState() {
+    super.initState();
+    initView();
+  }
+
+  //Same as looping
+  Widget buildPayment(CheckOutResponse checkOut) {
+    return Container(
+        padding: EdgeInsets.fromLTRB(0, 5, 0, 10),
+        child: Container(
+          decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.black12))),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                        padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
+                        child: Text(checkOut.productName,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ))),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
+                      child: Text("RM " + checkOut.price.toString(),
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          )),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(height: 4),
+              Row(
+                children: [
+                  Container(
+                      padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                      child: Text("Quantity : ",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ))),
+                  Container(
+                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                      child: Text("x" + checkOut.amount.toString(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 13,
+                          )))
+                ],
+              ),
+              SizedBox(height: 20),
+            ],
+          ),
+        ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +171,108 @@ class _PaymentState extends State<Payment> {
                     SizedBox(height: 10),
                     Text("Select Payment Method For Further Payment."),
                     SizedBox(height: 20),
+                    Container(
+                      padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                      child: Card(
+                          elevation: 15,
+                          child: Column(
+                            children: [
+                              if (checkOutList.isNotEmpty)
+                                Column(
+                                    children: checkOutList
+                                        .map((checkOut) =>
+                                            buildPayment(checkOut))
+                                        .toList()),
+                              Container(
+                                  width: double.infinity,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: Container(
+                                          padding:
+                                              EdgeInsets.fromLTRB(10, 10, 0, 0),
+                                          child: Text("Sub Total : ",
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                              )),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: Container(
+                                            padding: EdgeInsets.fromLTRB(
+                                                0, 0, 15, 0),
+                                            child: Text("RM " + totalPrice.toString(),
+                                                textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.bold,
+                                                ))),
+                                      )
+                                    ],
+                                  )),
+                              Container(
+                                  width: double.infinity,
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: Container(
+                                          padding:
+                                              EdgeInsets.fromLTRB(10, 10, 0, 5),
+                                          child: Text("Delivery Fees : ",
+                                              style: TextStyle(
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.bold,
+                                              )),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        flex: 1,
+                                        child: Container(
+                                            padding: EdgeInsets.fromLTRB(
+                                                0, 0, 15, 0),
+                                            child: Text("RM 4.0",
+                                                textAlign: TextAlign.end,
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.bold,
+                                                ))),
+                                      )
+                                    ],
+                                  )),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    flex: 18,
+                                    child: Container(
+                                      padding: EdgeInsets.fromLTRB(10, 8, 0, 0),
+                                      child: Text("Total :",
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 20,
+                                          )),
+                                    ),
+                                  ),
+                                  Expanded(
+                                      flex: 10,
+                                      child: Container(
+                                          padding:
+                                              EdgeInsets.fromLTRB(0, 0, 15, 0),
+                                          child: Text("RM " + total.toString(),
+                                              textAlign: TextAlign.end,
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ))))
+                                ],
+                              ),
+                              SizedBox(height: 28),
+                            ],
+                          )),
+                    ),
                     Container(
                       child: Column(
                         children: [
@@ -194,7 +390,8 @@ class _PaymentState extends State<Payment> {
                                   SizedBox(height: 28),
                                   Container(
                                       margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                                      padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                      padding:
+                                          EdgeInsets.fromLTRB(10, 0, 10, 0),
                                       decoration: BoxDecoration(
                                         color: Colors.black,
                                         border: Border.all(color: Colors.black),

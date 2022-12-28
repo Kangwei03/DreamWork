@@ -30,6 +30,7 @@ class UserRepository{
     return RegisterResponse.fromJson(result);
   }
 
+  //API for post bodyMeasurement data - Key in value and store in API
   Future<RegisterResponse> bodyMeasurement(Map<String, dynamic> payload) async{
     final header = {
       "Authorization": "Bearer ${Constant.userToken}"
@@ -76,6 +77,23 @@ class UserRepository{
     }
 
     return UserDetailsResponse.fromJson(result);
+  }
+
+  //API for get data from the API to display out.
+  Future<List<BodyMeasurementResponse>> getBodyMeasurement() async{
+    final header = {
+      "Authorization": "Bearer ${Constant.userToken}"
+    };
+
+    final Map<String,dynamic> result = await _httpClient.getRequest(Urls.getBodyMeasurement, <String,dynamic>{}, header: header);
+
+    if(result.isEmpty){
+      throw Exception('Empty data from API');
+    }
+
+    List<dynamic> resultData = result['Body measurement'];
+
+    return resultData.map((value) => BodyMeasurementResponse.fromJson(value)).toList();
   }
 
 

@@ -35,7 +35,7 @@ class HttpClient{
 
       final statusCode = response.statusCode;
 
-      print(response.body);
+      print(statusCode);
 
       if (statusCode == 200) {
         if (response.body.isEmpty) {

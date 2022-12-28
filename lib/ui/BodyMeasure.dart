@@ -13,7 +13,7 @@ class BodyMeasure extends StatefulWidget {
 }
 
 class _BodyMeasureState extends State<BodyMeasure> {
-  //controller
+  //Controller
   final txtWeightController = TextEditingController();
   final txtHeightController = TextEditingController();
   final txtShoulderController = TextEditingController();
@@ -24,10 +24,17 @@ class _BodyMeasureState extends State<BodyMeasure> {
   final txtTightController = TextEditingController();
   final txtCalfController = TextEditingController();
 
-  List<BodyMeasurementResponse> bodyMeasurementList =
-      List.empty(growable: true);
+  //Declaring the response
   late BodyMeasurementResponse bodyMeasurementResponse;
 
+  //To build a array to store data that get from API
+  List<BodyMeasurementResponse> bodyMeasurementList =
+      List.empty(growable: true);
+  List<BodyMeasurementResponse> getBodyMeasurementList =
+      List.empty(growable: true);
+
+
+  //Function in API
   UserRepository userRepository = UserRepository();
   bool isLoading = false;
 
@@ -35,8 +42,10 @@ class _BodyMeasureState extends State<BodyMeasure> {
   String gender = 'others';
   double bmi = 0;
 
+  //Number Format in 1 decimal places.
   var f = NumberFormat("###.0#", "en_US");
 
+  //Function to check either value height and weight has been filled in or not.
   bool isPassFilled() {
     if (txtHeightController.text != "" && txtWeightController.text != "") {
       return true;
@@ -45,6 +54,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
     }
   }
 
+  //same as main function, when open this page, it will run at the first time.
   void initState() {
     super.initState();
     initView();
@@ -55,19 +65,56 @@ class _BodyMeasureState extends State<BodyMeasure> {
 
   void initView() async {
     //call api to retrieve user details
-    //get value and put into gender
-    bodyMeasurementResponse = BodyMeasurementResponse(
-        1, "2022-11-23", 75, 155, 15, 15, 15, 15, 15, 15, 15, 31.2);
-    bodyMeasurementList.add(BodyMeasurementResponse(
-        1, "2022-11-23", 75, 155, 15, 15, 15, 15, 15, 15, 15, 31.2));
+    // //get value and put into gender
+    // bodyMeasurementResponse = BodyMeasurementResponse(
+    //     1, "2022-11-23", 75, 155, 15, 15, 15, 15, 15, 15, 15, 31.2);
+    // bodyMeasurementList.add(BodyMeasurementResponse(
+    //     1, "2022-11-23", 75, 155, 15, 15, 15, 15, 15, 15, 15, 31.2));
+    // setState(() {
+    //   txtHeightController.text = f.format(bodyMeasurementResponse.height);
+    //   txtWeightController.text = f.format(bodyMeasurementResponse.weight);
+    //   bmi = calBmi();
+    // });
+
     setState(() {
-      txtHeightController.text = f.format(bodyMeasurementResponse.height);
-      txtWeightController.text = f.format(bodyMeasurementResponse.weight);
-      bmi = calBmi();
+      isLoading = true;
     });
 
+    await userRepository
+        .getBodyMeasurement()
+        .then((value) {
+          getBodyMeasurementList.clear();
+          getBodyMeasurementList.addAll(value);
+        })
+        .onError(
+            (error, stackTrace) => showErrorDialog(context, error.toString()))
+        .whenComplete(() {
+          setState(() {
+            isLoading = false;
+          });
+        });
+
+    setState(() {
+      //Compulsory data
+      txtHeightController.text = f.format(bodyMeasurementResponse.height);
+      txtWeightController.text = f.format(bodyMeasurementResponse.weight);
+
+      print("Hello");
+      print(getBodyMeasurementList);
+      //Not compulsory data
+      txtShoulderController.text = f.format(bodyMeasurementResponse.shoulder);
+      txtArmController.text = f.format(bodyMeasurementResponse.arm);
+      txtChestController.text = f.format(bodyMeasurementResponse.chest);
+      txtWaistController.text = f.format(bodyMeasurementResponse.waist);
+      txtHipController.text = f.format(bodyMeasurementResponse.hip);
+      txtTightController.text = f.format(bodyMeasurementResponse.tight);
+      txtCalfController.text = f.format(bodyMeasurementResponse.calf);
+
+      bmi = calBmi();
+    });
   }
 
+  //Function to calculate BMI
   double calBmi() {
     double a1 = double.parse(txtWeightController.text);
     double a2 = double.parse(txtHeightController.text);
@@ -78,6 +125,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
     return result;
   }
 
+  //Function show the BMI status
   Widget bmiStatusText() {
     String bmiStatus = "";
 
@@ -92,6 +140,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
     return Text("BMI status is $bmiStatus");
   }
 
+  //Function to change the photo, either male, female or others.
   Widget photoDisplay() {
     if (gender == "male") {
       return Image.asset("Assets/bodymen.png");
@@ -179,7 +228,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                       border: OutlineInputBorder(),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide:
-                                        BorderSide(color: Colors.blue),
+                                            BorderSide(color: Colors.blue),
                                       ),
                                       labelStyle: TextStyle(
                                         color: Colors.black,
@@ -203,7 +252,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                       border: OutlineInputBorder(),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide:
-                                        BorderSide(color: Colors.blue),
+                                            BorderSide(color: Colors.blue),
                                       ),
                                       labelStyle: TextStyle(
                                         color: Colors.black,
@@ -225,20 +274,20 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                     width: MediaQuery.of(context).size.width,
                                     decoration: BoxDecoration(
                                         border:
-                                        Border.all(color: Colors.black)),
+                                            Border.all(color: Colors.black)),
                                     height: 60,
                                     child: ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                             disabledForegroundColor:
-                                            Colors.blue.withOpacity(0.38),
+                                                Colors.blue.withOpacity(0.38),
                                             disabledBackgroundColor:
-                                            Colors.white.withOpacity(0.12)),
+                                                Colors.white.withOpacity(0.12)),
                                         onPressed: buttonEnabled
                                             ? () {
-                                          setState(() {
-                                            bmi = calBmi();
-                                          });
-                                        }
+                                                setState(() {
+                                                  bmi = calBmi();
+                                                });
+                                              }
                                             : null,
                                         child: Text("Calculate",
                                             style: TextStyle(
@@ -277,7 +326,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                     child: Column(
                                       children: [
                                         TextFormField(
-                                          controller: txtShoulderController,
+                                            controller: txtShoulderController,
                                             decoration: InputDecoration(
                                               labelText: 'Shoulder (cm)',
                                               border: OutlineInputBorder(),
@@ -297,7 +346,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                             ]),
                                         SizedBox(height: 18),
                                         TextFormField(
-                                          controller: txtArmController,
+                                            controller: txtArmController,
                                             decoration: InputDecoration(
                                               labelText: 'Arm (cm)',
                                               border: OutlineInputBorder(),
@@ -317,7 +366,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                             ]),
                                         SizedBox(height: 18),
                                         TextFormField(
-                                          controller: txtChestController,
+                                            controller: txtChestController,
                                             decoration: InputDecoration(
                                               labelText: 'Chest (cm)',
                                               border: OutlineInputBorder(),
@@ -337,7 +386,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                             ]),
                                         SizedBox(height: 18),
                                         TextFormField(
-                                          controller: txtWaistController,
+                                            controller: txtWaistController,
                                             decoration: InputDecoration(
                                               labelText: 'Waist (cm)',
                                               border: OutlineInputBorder(),
@@ -357,7 +406,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                             ]),
                                         SizedBox(height: 18),
                                         TextFormField(
-                                          controller: txtWaistController,
+                                            controller: txtWaistController,
                                             decoration: InputDecoration(
                                               labelText: 'Hip (cm)',
                                               border: OutlineInputBorder(),
@@ -377,7 +426,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                             ]),
                                         SizedBox(height: 18),
                                         TextFormField(
-                                          controller: txtTightController,
+                                            controller: txtTightController,
                                             decoration: InputDecoration(
                                               labelText: 'Tight (cm)',
                                               border: OutlineInputBorder(),
@@ -397,7 +446,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                             ]),
                                         SizedBox(height: 18),
                                         TextFormField(
-                                          controller: txtCalfController,
+                                            controller: txtCalfController,
                                             decoration: InputDecoration(
                                               labelText: 'Calf (cm)',
                                               border: OutlineInputBorder(),
@@ -464,7 +513,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                                 child: Container(
                                                   color: Colors.black,
                                                   padding:
-                                                  const EdgeInsets.all(14),
+                                                      const EdgeInsets.all(14),
                                                   child: Text("OK",
                                                       style: TextStyle(
                                                           color: Colors.white)),

@@ -23,7 +23,7 @@ class _OrderState extends State<Order> {
   static const IconData shopping_cart =
       IconData(0xe59c, fontFamily: 'MaterialIcons');
 
-  //declare variable
+  //To build the array to store the data that get from API.
   List<ProductResponse> ProductList = List.empty(growable: true);
 
   ProductRepository productRepository = ProductRepository();
@@ -69,7 +69,7 @@ class _OrderState extends State<Order> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children: const [
                 Text("DreamWork", style: TextStyle(fontWeight: FontWeight.bold))
               ],
             )),

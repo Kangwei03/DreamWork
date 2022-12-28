@@ -21,6 +21,7 @@ class _RegisterState extends State<Register> {
       return true;
   }
 
+  //Check all the mandatory field has been filled or not.
   bool isAllFilled() {
     if (txtUserPasswordController.text != "" &&
         txtConfirmPasswordController.text != "" &&
@@ -68,6 +69,7 @@ class _RegisterState extends State<Register> {
   UserRepository userRepository = UserRepository();
   bool isLoading = false;
 
+  //Default gender choose for user when register was others.
   String? gender = 'others';
 
   //Controller used for check text inside the box
