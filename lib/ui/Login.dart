@@ -51,9 +51,6 @@ class _LoginState extends State<Login> {
             title: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
-                // Image.asset("Assets/dream4.png",
-                //     fit: BoxFit.fill,
-                //     color: Colors.white),
                 children: const [
                   Text("DreamWork",
                       style: TextStyle(fontWeight: FontWeight.bold)),

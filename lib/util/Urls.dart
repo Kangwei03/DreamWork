@@ -8,4 +8,5 @@ class Urls {
   static const logOut = "/api/logout";
   static const userDetails = "/api/get_user";
   static const getBodyMeasurement = "/api/get-record";
+  static const addToCart = "/api/insert-cart";
 }

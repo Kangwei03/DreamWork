@@ -1,5 +1,6 @@
 import 'package:dreamwork/Constant.dart';
 import 'package:dreamwork/model/addToCartModel.dart';
+import 'package:dreamwork/repository/AddToCartRepository.dart';
 import 'package:dreamwork/response/ProductResponse.dart';
 import 'package:flutter/material.dart';
 import 'package:quantity_input/quantity_input.dart';
@@ -22,6 +23,8 @@ class _OrderItemState extends State<OrderItem> {
   int _itemCount = 0;
 
   List<AddToCart> addToCartList = [];
+
+  AddToCartRepository addToCartRepository = AddToCartRepository();
 
   void initState() {
     super.initState();
@@ -91,7 +94,7 @@ class _OrderItemState extends State<OrderItem> {
                                   ),
                                   child: TextButton(
                                     onPressed: () {},
-                                    child: Text("250g",
+                                    child: Text(widget.product.weight.toString() + "kg",
                                         style: TextStyle(color: Colors.black)),
                                   ),
                                 )),
@@ -164,53 +167,11 @@ class _OrderItemState extends State<OrderItem> {
                             child: IconButton(
                               icon: Icon(shopping_cart),
                               onPressed: () {
-                                int id = 0;
-                                final String productName = widget.product.name;
-                                final int quantity = _itemCount;
-                                bool isFound = false;
 
-                                if (addToCartList.isNotEmpty) {
-                                  for (int i = 0;
-                                      i < addToCartList.length && !isFound;
-                                      i++) {
-                                    if (addToCartList[i].productName ==
-                                        widget.product.name) {
-                                      print('update ${widget.product.name}');
-
-                                      print('update with id ${addToCartList[i].id}');
-                                      var addToCart = AddToCart(
-                                          id: addToCartList[i].id,
-                                          productName: productName,
-                                          quantity: quantity + addToCartList[i].quantity);
-                                      DbManager.db
-                                          .updateAddToCart(addToCart)
-                                          .whenComplete(() => initView());
-                                      isFound = true;
-                                    }
-
-                                  }
-                                  if(!isFound){
-                                    print('insert ${widget.product.name}');
-                                    var addToCart = AddToCart(
-                                        productName: productName,
-                                        quantity: quantity);
-                                    DbManager.db
-                                        .insertAddToCart(addToCart)
-                                        .whenComplete(() => initView());
-                                  }
-                                } else {
-                                  var addToCart = AddToCart(
-                                      productName: productName,
-                                      quantity: quantity);
-                                  DbManager.db
-                                      .insertAddToCart(addToCart)
-                                      .whenComplete(() => initView());
-                                }
-
-                                print('Product Name: ${widget.product.name}');
-                                print('Quantity: $_itemCount');
-
-                                print(addToCartList);
+                                final payload = {
+                                  // 'product_id': widget.product.product_id,
+                                  'quantity': _itemCount,
+                                };
                               },
                             ))
                       ],

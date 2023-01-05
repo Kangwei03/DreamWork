@@ -55,6 +55,7 @@ class BodyMeasurementResponse {
       this.calf,
       this.bmi);
 
+  //Let the list become empty first.
   BodyMeasurementResponse.defaultEmpty({
     this.id = -1,
     this.created_at = '',

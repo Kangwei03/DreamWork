@@ -86,6 +86,8 @@ class _BodyMeasureState extends State<BodyMeasure> {
           getBodyMeasurementList.clear();
           getBodyMeasurementList.addAll(value);
 
+          //Check whether the date is today or not, if yes then pass the value
+          //into the controller.
           for(BodyMeasurementResponse e in value){
             DateTime createdDateTime = DateTime.parse(e.created_at);
             DateTime currentDateTime = DateTime.parse("2022-12-22");
@@ -418,7 +420,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
                                             ]),
                                         SizedBox(height: 18),
                                         TextFormField(
-                                            controller: txtWaistController,
+                                            controller: txtHipController,
                                             decoration: InputDecoration(
                                               labelText: 'Hip (cm)',
                                               border: OutlineInputBorder(),
