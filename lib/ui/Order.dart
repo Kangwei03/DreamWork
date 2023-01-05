@@ -28,6 +28,7 @@ class _OrderState extends State<Order> {
 
   ProductRepository productRepository = ProductRepository();
   bool isLoading = false;
+  bool _showProcessingIndicator = false;
 
   @override
   void initState() {
@@ -48,6 +49,12 @@ class _OrderState extends State<Order> {
       setState(() {
        isLoading = false;
       });
+    });
+  }
+
+  void setLoader(bool isLoading){
+    setState(() {
+      this._showProcessingIndicator = isLoading;
     });
   }
 
@@ -75,53 +82,58 @@ class _OrderState extends State<Order> {
             )),
         body: isLoading
             ? loadingIndicator()
-            : SingleChildScrollView(
-                child: Container(
-                padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  children: [
-                    Text("Product",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                        )),
-                    Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              width: 80,
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black),
-                                color: Colors.black,
-                              ),
-                              child: TextButton(
-                                onPressed: () {
-                                  print('clear');
-                                  setState(() {
-                                    product1 == 0;
-                                    product2 == 0;
-                                    product3 == 0;
-                                    product4 == 0;
-                                  });
-                                },
-                                child: Text("CLEAR",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(color: Colors.white)),
-                              ),
-                            )
-                          ],
-                        )),
-                    Column(
-                      children: ProductList.map((product) {
-                        //() is the thing that need to pass in
-                        return OrderItem(product: product, title: 'Order');
-                      }).toList(),
+            : Stack(
+              children: [
+                SingleChildScrollView(
+                    child: Container(
+                    padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      children: [
+                        Text("Product",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                            )),
+                        Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.black),
+                                    color: Colors.black,
+                                  ),
+                                  child: TextButton(
+                                    onPressed: () {
+                                      print('clear');
+                                      setState(() {
+                                        product1 == 0;
+                                        product2 == 0;
+                                        product3 == 0;
+                                        product4 == 0;
+                                      });
+                                    },
+                                    child: Text("CLEAR",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(color: Colors.white)),
+                                  ),
+                                )
+                              ],
+                            )),
+                        Column(
+                          children: ProductList.map((product) {
+                            //() is the thing that need to pass in
+                            return OrderItem(product: product, title: 'Order', setLoader: setLoader,);
+                          }).toList(),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              )));
+                  )),
+                if (_showProcessingIndicator) showLoader(),
+              ],
+            ));
   }
 }

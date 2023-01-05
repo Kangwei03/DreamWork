@@ -10,7 +10,8 @@ import '../model/addToCartDB.dart';
 class OrderItem extends StatefulWidget {
   final ProductResponse product;
   final String title;
-  const OrderItem({Key? key, required this.product, required this.title})
+  final Function setLoader;
+  const OrderItem({Key? key, required this.product, required this.title, required this.setLoader})
       : super(key: key);
 
   @override
@@ -167,11 +168,15 @@ class _OrderItemState extends State<OrderItem> {
                             child: IconButton(
                               icon: Icon(shopping_cart),
                               onPressed: () {
-
+                                widget.setLoader(true);
                                 final payload = {
                                   // 'product_id': widget.product.product_id,
                                   'quantity': _itemCount,
                                 };
+                                print(payload);
+                                Future.delayed(Duration(seconds: 1)).then((value) {
+                                  widget.setLoader(false);
+                                });
                               },
                             ))
                       ],
