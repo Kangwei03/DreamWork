@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'CheckOut.dart';
+part of 'CheckOutResponse.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
@@ -8,18 +8,18 @@ part of 'CheckOut.dart';
 
 CheckOutResponse _$CheckOutResponseFromJson(Map<String, dynamic> json) =>
     CheckOutResponse(
-      json['productName'] as String,
+          json['name'] as String,
+      json['product_id'] as int,
       json['image_url'] as String,
-      json['amount'] as int,
-      (json['price'] as num).toDouble(),
-      (json['totalPrice'] as num).toDouble(),
-    );
+      json['quantity'] as int,
+      json['price'] as int,
+);
 
 Map<String, dynamic> _$CheckOutResponseToJson(CheckOutResponse instance) =>
     <String, dynamic>{
-      'productName': instance.productName,
+      'name': instance.name,
+      'product_id': instance.product_id,
       'image_url': instance.image_url,
-      'amount': instance.amount,
+      'quantity': instance.quantity,
       'price': instance.price,
-      'totalPrice': instance.totalPrice,
     };

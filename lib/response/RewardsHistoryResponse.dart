@@ -3,23 +3,21 @@ part 'RewardsHistoryResponse.g.dart';
 
 @JsonSerializable()
 class RewardsHistoryResponse {
-  @JsonKey(name: 'image')
-  final String image;
 
-  @JsonKey(name: 'name')
-  final String name;
+  @JsonKey(name: 'item_name')
+  final String item_name;
 
-  @JsonKey(name: 'points')
-  final int points;
+  @JsonKey(name: 'point')
+  final int point;
 
-  @JsonKey(name: 'redeemDate')
-  final DateTime redeemDate;
+  @JsonKey(name: 'created_at')
+  final DateTime created_at;
 
   @JsonKey(name: 'status')
-  final String status;
+  final int status;
 
   RewardsHistoryResponse(
-      this.image, this.name, this.points, this.redeemDate, this.status);
+      this.item_name, this.point, this.created_at, this.status);
 
   //convert json to object
   factory RewardsHistoryResponse.fromJson(Map<String, dynamic> json) =>
@@ -27,6 +25,6 @@ class RewardsHistoryResponse {
 
   @override
   String toString() {
-    return 'RewardsHistoryResponse{image: $image, name: $name, points: $points, redeemDate: $redeemDate, status: $status}';
+    return 'RewardsHistoryResponse{item_name: $item_name, point: $point, created_at: $created_at, status: $status}';
   }
 }

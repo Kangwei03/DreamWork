@@ -90,7 +90,7 @@ class _BodyMeasureState extends State<BodyMeasure> {
           //into the controller.
           for(BodyMeasurementResponse e in value){
             DateTime createdDateTime = DateTime.parse(e.created_at);
-            DateTime currentDateTime = DateTime.parse("2022-12-22");
+            DateTime currentDateTime = DateTime.now();
             print(createdDateTime);
             if(createdDateTime.year == currentDateTime.year
                 && createdDateTime.month == currentDateTime.month

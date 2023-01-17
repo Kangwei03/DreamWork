@@ -1,6 +1,6 @@
 import 'package:dreamwork/repository/InvoiceRepository.dart';
 import 'package:dreamwork/repository/UserRepository.dart';
-import 'package:dreamwork/response/CheckOut.dart';
+import 'package:dreamwork/response/CheckOutResponse.dart';
 import 'package:dreamwork/response/InvoiceResponse.dart';
 import 'package:dreamwork/util/Widgets.dart';
 import 'package:flutter/material.dart';

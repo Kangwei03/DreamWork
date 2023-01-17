@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
 part 'RegisterResponse.g.dart';
+
 @JsonSerializable()
 class RegisterResponse {
-
   @JsonKey(name: 'message')
   final String message;
 

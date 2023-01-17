@@ -46,7 +46,7 @@ class _OrderHistoryState extends State<OrderHistory> {
                   child: Column(
                     children: [
                       Row(
-                        children: [
+                        children: const [
                           Text("Order ID : ",
                               style: TextStyle(
                                 fontSize: 15,
@@ -57,7 +57,7 @@ class _OrderHistoryState extends State<OrderHistory> {
                       ),
                       SizedBox(height: 15),
                       Row(
-                        children: [
+                        children: const [
                           Text("Order Date : ",
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.bold)),

@@ -1,6 +1,9 @@
 import 'package:dreamwork/repository/UserRepository.dart';
 import 'package:dreamwork/response/BodyMeasurementResponse.dart';
+import 'package:dreamwork/util/Formatter.dart';
+import 'package:dreamwork/util/Widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class BodyHistory extends StatefulWidget {
   const BodyHistory({Key? key}) : super(key: key);
@@ -10,6 +13,9 @@ class BodyHistory extends StatefulWidget {
 }
 
 class _BodyHistoryState extends State<BodyHistory> {
+
+  //Date Format
+  final f = DateFormat('yyyy-MM-dd');
 
   //To build a array to store the data that get from API
   List<BodyMeasurementResponse> bodyMeasurementList = List.empty(growable: true);
@@ -27,15 +33,19 @@ class _BodyHistoryState extends State<BodyHistory> {
   }
 
   void initView() async {
-    //call api to retrieve user details
-    //get value and put into gender
-    bodyMeasurementResponse = BodyMeasurementResponse(1, "2022-11-23", 75, 155, 15, 15, 15, 15, 15, 15, 15,31.22);
-    bodyMeasurementList.add(BodyMeasurementResponse(1, "2022-11-24", 75, 155, 14, 15, 15, 15, 15, 15, 15, 31.22));
-    bodyMeasurementList.add(BodyMeasurementResponse(1, "2022-11-25", 75, 155, 13, 15, 15, 15, 15, 15, 15, 31.22));
-    bodyMeasurementList.add(BodyMeasurementResponse(1, "2022-11-26", 75, 155, 12, 15, 15, 15, 15, 15, 15, 31.22));
-    bodyMeasurementList.add(BodyMeasurementResponse(1, "2022-11-27", 75, 155, 11, 15, 15, 15, 15, 15, 15, 31.22));
-    bodyMeasurementList.add(BodyMeasurementResponse(1, "2022-11-28", 75, 155, 16, 15, 15, 15, 15, 15, 15, 31.22));
-    bodyMeasurementList.add(BodyMeasurementResponse(1, "2022-11-29", 75, 155, 17, 15, 15, 15, 15, 15, 15, 31.22));
+    setState(() {
+      isLoading = true;
+    });
+
+    await userRepository.getBodyMeasurement().then((value) {
+      bodyMeasurementList = value;
+    }).onError((error, stackTrace) => showErrorDialog(context, error.toString()))
+        .whenComplete(() {
+
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 
   String selectedParam = '';
@@ -62,18 +72,20 @@ class _BodyHistoryState extends State<BodyHistory> {
       bodyValue = bodyMeasurement.calf;
     }
 
+    print(bodyMeasurement.created_at);
+
     return (
         TableRow(children: [
           Column(
             children: [
               TableCell(child: SizedBox(height: 10)),
-              Text(bodyMeasurement.created_at, style: TextStyle(fontSize: 20.0))
+              Text(dateFormatterFromString(bodyMeasurement.created_at), style: TextStyle(fontSize: 20.0))
             ],
           ),
           Column(
             children: [
               TableCell(child: SizedBox(height: 10)),
-              Text(bodyValue.toString(), style: TextStyle(fontSize: 20.0))
+              Text(bodyValue.toStringAsFixed(2), style: TextStyle(fontSize: 20.0))
             ],
           )
         ])

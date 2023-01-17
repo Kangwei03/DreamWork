@@ -7,24 +7,21 @@ part of 'RewardsHistoryResponse.dart';
 // **************************************************************************
 
 RewardsHistoryResponse _$RewardsHistoryResponseFromJson(
-        Map<String, dynamic> json) {
-     return RewardsHistoryResponse(
-           json['image'] as String,
-           json['name'] as String,
-           json['points'] as int,
-           DateTime.parse(json['redeemDate'] as String),
-           json['status'] as String,
-
-     );
+    Map<String, dynamic> json) {
+  print(int.parse(json['point'] as String));
+  return RewardsHistoryResponse(
+    json['item_name'] as String,
+    int.parse(json['point'] as String),
+    DateTime.parse(json['created_at'] as String),
+    json['status'] as int,
+  );
 }
-
 
 Map<String, dynamic> _$RewardsHistoryResponseToJson(
         RewardsHistoryResponse instance) =>
     <String, dynamic>{
-      'image': instance.image,
-      'name': instance.name,
-      'points': instance.points,
-      'redeemDate': instance.redeemDate.toIso8601String(),
+      'item_name': instance.item_name,
+      'point': instance.point,
+      'created_at': instance.created_at.toIso8601String(),
       'status': instance.status,
     };

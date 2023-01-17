@@ -9,4 +9,7 @@ class Urls {
   static const userDetails = "/api/get_user";
   static const getBodyMeasurement = "/api/get-record";
   static const addToCart = "/api/insert-cart";
+  static const rewardsHistory = "/api/get-status";
+  static const claimRewards = "/api/reward/history";
+  static const getCart = "/api/get-cart";
 }

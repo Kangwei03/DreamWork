@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:dreamwork/Constant.dart';
 import 'package:dreamwork/model/addToCartModel.dart';
 import 'package:dreamwork/repository/AddToCartRepository.dart';
 import 'package:dreamwork/response/ProductResponse.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:quantity_input/quantity_input.dart';
 
 import '../model/addToCartDB.dart';
@@ -11,7 +14,11 @@ class OrderItem extends StatefulWidget {
   final ProductResponse product;
   final String title;
   final Function setLoader;
-  const OrderItem({Key? key, required this.product, required this.title, required this.setLoader})
+  const OrderItem(
+      {Key? key,
+      required this.product,
+      required this.title,
+      required this.setLoader})
       : super(key: key);
 
   @override
@@ -26,6 +33,24 @@ class _OrderItemState extends State<OrderItem> {
   List<AddToCart> addToCartList = [];
 
   AddToCartRepository addToCartRepository = AddToCartRepository();
+
+  var f = NumberFormat("##.##", "en_US");
+
+  bool buttonPress = false;
+
+  void addToCart() {
+    if (_itemCount != 0) {
+      setState(() {
+        buttonPress = true;
+      });
+      print("buttonPress to true");
+    } else if (_itemCount == 0) {
+      setState(() {
+        buttonPress = false;
+      });
+      print("buttonPress to false");
+    }
+  }
 
   void initState() {
     super.initState();
@@ -95,7 +120,9 @@ class _OrderItemState extends State<OrderItem> {
                                   ),
                                   child: TextButton(
                                     onPressed: () {},
-                                    child: Text(widget.product.weight.toString() + "kg",
+                                    child: Text(
+                                        widget.product.weight.toString() +
+                                            " KG",
                                         style: TextStyle(color: Colors.black)),
                                   ),
                                 )),
@@ -128,7 +155,9 @@ class _OrderItemState extends State<OrderItem> {
                                   child: TextButton(
                                     onPressed: () {},
                                     child: Text(
-                                        "RM " + widget.product.price.toString(),
+                                        "RM " +
+                                            widget.product.price
+                                                .toStringAsFixed(2),
                                         style: TextStyle(
                                             color: Colors.black, fontSize: 10)),
                                   ),
@@ -155,28 +184,68 @@ class _OrderItemState extends State<OrderItem> {
                         Expanded(
                           flex: 18,
                           child: QuantityInput(
-                            acceptsZero: true,
-                            buttonColor: Colors.black,
-                            inputWidth: 45,
-                            value: _itemCount,
-                            onChanged: (value) => setState(() => _itemCount =
-                                int.parse(value.replaceAll(',', ''))),
-                          ),
+                              acceptsZero: true,
+                              buttonColor: Colors.black,
+                              inputWidth: 45,
+                              value: _itemCount,
+                              onChanged: (value) => {
+                                    setState(
+                                      () => _itemCount =
+                                          int.parse(value.replaceAll(',', '')),
+                                    ),
+                                    setState(() {
+                                      addToCart();
+                                    })
+                                  }),
                         ),
                         Expanded(
                             flex: 8,
                             child: IconButton(
                               icon: Icon(shopping_cart),
                               onPressed: () {
-                                widget.setLoader(true);
-                                final payload = {
-                                  // 'product_id': widget.product.product_id,
-                                  'quantity': _itemCount,
-                                };
-                                print(payload);
-                                Future.delayed(Duration(seconds: 1)).then((value) {
-                                  widget.setLoader(false);
-                                });
+                                if (buttonPress) {
+                                  widget.setLoader(true);
+                                  final payload = {
+                                    'id': widget.product.id,
+                                    'quantity': _itemCount,
+                                  };
+                                  print(payload);
+                                  Future.delayed(Duration(seconds: 1))
+                                      .then((value) {
+                                    widget.setLoader(false);
+
+                                    setState(() {
+                                      this._itemCount = 0;
+                                    });
+                                  });
+                                } else if (!buttonPress) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (ctx) => AlertDialog(
+                                      title: const Text(
+                                          "Item added Unsuccessful",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold)),
+                                      content: const Text(
+                                          "At least one item must be added to cart."),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.of(ctx).pop();
+                                          },
+                                          child: Container(
+                                            color: Colors.black,
+                                            padding: const EdgeInsets.all(14),
+                                            child: Text("OK",
+                                                style: TextStyle(
+                                                    color: Colors.white)),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                  print("unable to add");
+                                }
                               },
                             ))
                       ],

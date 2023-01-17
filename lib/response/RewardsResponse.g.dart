@@ -14,6 +14,7 @@ RewardsResponse _$RewardsResponseFromJson(Map<String, dynamic> json) {
     json['point_to_redeem'] as int,
     json['stock'] as int,
     DateTime.parse(json['created_at'] as String),
+    json['id'] as int,
     DateTime.parse(json['updated_at'] as String),
   );
 }
@@ -25,6 +26,7 @@ Map<String, dynamic> _$RewardsResponseToJson(RewardsResponse instance) =>
       'description': instance.description,
       'pointNeeded': instance.point_to_redeem,
       'stock': instance.stock,
+      'id': instance.id,
       'created_at': instance.created_at,
       'updated_at': instance.updated_at,
     };

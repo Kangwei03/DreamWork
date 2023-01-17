@@ -1,4 +1,4 @@
-import 'package:dreamwork/response/CheckOut.dart';
+import 'package:dreamwork/response/CheckOutResponse.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -62,7 +62,7 @@ class _PaymentState extends State<Payment> {
 
     //Function to calculate the Sub total.
     for (int i = 0; i < checkOutList.length; i++) {
-      totalSub += checkOutList[i].price * checkOutList[i].amount;
+      totalSub += checkOutList[i].price * checkOutList[i].quantity;
     }
 
 
@@ -92,7 +92,7 @@ class _PaymentState extends State<Payment> {
                     flex: 3,
                     child: Container(
                         padding: EdgeInsets.fromLTRB(10, 10, 10, 5),
-                        child: Text(checkOut.productName,
+                        child: Text(checkOut.name,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
@@ -124,7 +124,7 @@ class _PaymentState extends State<Payment> {
                           ))),
                   Container(
                       padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
-                      child: Text("x" + checkOut.amount.toString(),
+                      child: Text("x" + checkOut.quantity.toString(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 13,

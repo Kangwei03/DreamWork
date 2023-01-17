@@ -26,9 +26,12 @@ class RewardsResponse {
   @JsonKey(name: 'updated_at')
   final DateTime updated_at;
 
+  @JsonKey(name: 'id')
+  final int id;
+
 
   RewardsResponse(this.image, this.name, this.description,
-      this.point_to_redeem, this.stock, this.created_at, this.updated_at);
+      this.point_to_redeem, this.stock, this.created_at, this.id, this.updated_at);
 
   //convert json to object
   factory RewardsResponse.fromJson(Map<String, dynamic> json) =>
@@ -36,6 +39,6 @@ class RewardsResponse {
 
   @override
   String toString() {
-    return 'RewardsResponse{ image_url: $image, name: $name, description: $description, pointNeeded: $point_to_redeem, stock: $stock, created_at: $created_at, updated_at: $updated_at}';
+    return 'RewardsResponse{ image_url: $image, name: $name, description: $description,id: $id, pointNeeded: $point_to_redeem, stock: $stock, created_at: $created_at, updated_at: $updated_at}';
   }
 }

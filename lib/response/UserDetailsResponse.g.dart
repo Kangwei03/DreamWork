@@ -6,8 +6,7 @@ part of 'UserDetailsResponse.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-UserDetailsResponse _$UserDetailsResponseFromJson(
-        Map<String, dynamic> json) =>
+UserDetailsResponse _$UserDetailsResponseFromJson(Map<String, dynamic> json) =>
     UserDetailsResponse(
       json['Email'] as String,
       json['Username'] as String,
@@ -15,6 +14,7 @@ UserDetailsResponse _$UserDetailsResponseFromJson(
       json['Phone_No'] as String,
       json['Address'] as String,
       json['status'] as String,
+      json['Point'] as int,
     );
 
 Map<String, dynamic> _$UserDetailsResponseToJson(
@@ -26,4 +26,5 @@ Map<String, dynamic> _$UserDetailsResponseToJson(
       'Phone_No': instance.Phone_No,
       'Address': instance.Address,
       'status': instance.status,
+      'Point': instance.Point,
     };

@@ -54,7 +54,7 @@ class _OrderState extends State<Order> {
 
   void setLoader(bool isLoading){
     setState(() {
-      this._showProcessingIndicator = isLoading;
+      _showProcessingIndicator = isLoading;
     });
   }
 
@@ -86,7 +86,7 @@ class _OrderState extends State<Order> {
               children: [
                 SingleChildScrollView(
                     child: Container(
-                    padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                    padding: EdgeInsets.fromLTRB(10, 40, 10, 10),
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       children: [
@@ -95,34 +95,35 @@ class _OrderState extends State<Order> {
                               fontWeight: FontWeight.bold,
                               fontSize: 25,
                             )),
-                        Container(
-                            width: MediaQuery.of(context).size.width,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Container(
-                                  width: 80,
-                                  decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black),
-                                    color: Colors.black,
-                                  ),
-                                  child: TextButton(
-                                    onPressed: () {
-                                      print('clear');
-                                      setState(() {
-                                        product1 == 0;
-                                        product2 == 0;
-                                        product3 == 0;
-                                        product4 == 0;
-                                      });
-                                    },
-                                    child: Text("CLEAR",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(color: Colors.white)),
-                                  ),
-                                )
-                              ],
-                            )),
+                        // Container(
+                        //     width: MediaQuery.of(context).size.width,
+                        //     child: Row(
+                        //       mainAxisAlignment: MainAxisAlignment.end,
+                        //       children: [
+                        //         Container(
+                        //           width: 80,
+                        //           decoration: BoxDecoration(
+                        //             border: Border.all(color: Colors.black),
+                        //             color: Colors.black,
+                        //           ),
+                        //           child: TextButton(
+                        //             onPressed: () {
+                        //               print('clear');
+                        //               setState(() {
+                        //                 product1 == 0;
+                        //                 product2 == 0;
+                        //                 product3 == 0;
+                        //                 product4 == 0;
+                        //               });
+                        //             },
+                        //             child: Text("CLEAR",
+                        //                 textAlign: TextAlign.center,
+                        //                 style: TextStyle(color: Colors.white)),
+                        //           ),
+                        //         )
+                        //       ],
+                        //     )),
+                        SizedBox(height: 28),
                         Column(
                           children: ProductList.map((product) {
                             //() is the thing that need to pass in

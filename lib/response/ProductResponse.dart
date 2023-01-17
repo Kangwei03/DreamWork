@@ -8,8 +8,8 @@ class ProductResponse {
   @JsonKey(name: 'name')
   final String name;
 
-  // @JsonKey(name: 'product_id')
-  // final int product_id;
+  @JsonKey(name: 'id')
+  final int id;
 
   @JsonKey(name: 'image_url')
   final String image_url;
@@ -29,7 +29,7 @@ class ProductResponse {
       this.image_url,
       this.price,
       this.description,
-      // this.product_id,
+      this.id,
       this.weight);
   //convert json to object
   factory ProductResponse.fromJson(Map<String, dynamic> json) =>
@@ -37,6 +37,6 @@ class ProductResponse {
 
   @override
   String toString() {
-    return 'ProductResponse{name: $name, image_url: $image_url, price: $price, description: $description, weight: $weight}';
+    return 'ProductResponse{name: $name, image_url: $image_url, id: $id， price: $price, description: $description, weight: $weight}';
   }
 }

@@ -72,7 +72,7 @@ class _LoginState extends State<Login> {
                         child: TextFormField(
                             controller: txtUserNameController,
                             decoration: InputDecoration(
-                              labelText: 'UserID',
+                              labelText: 'User ID',
                               border: OutlineInputBorder(),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(color: Colors.blue),
@@ -88,7 +88,7 @@ class _LoginState extends State<Login> {
                               obscureText: !showUserPassword,
                               controller: txtUserPasswordController,
                               decoration: InputDecoration(
-                                  labelText: 'UserPassword',
+                                  labelText: 'User Password',
                                   labelStyle: TextStyle(
                                     color: Colors.black,
                                   ),

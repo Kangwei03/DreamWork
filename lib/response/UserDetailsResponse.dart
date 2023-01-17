@@ -23,8 +23,11 @@ class UserDetailsResponse {
   @JsonKey(name: "status")
   final String status;
 
+  @JsonKey(name: "Point")
+  final int Point;
+
   UserDetailsResponse(this.Email, this.Username, this.Name, this.Phone_No,
-      this.Address, this.status);
+      this.Address, this.status, this.Point);
 
   //convert json to object
   factory UserDetailsResponse.fromJson(Map<String, dynamic> json) =>
@@ -32,6 +35,6 @@ class UserDetailsResponse {
 
   @override
   String toString() {
-    return 'UserDetailsResponse{Email: $Email, Username: $Username, Name: $Name, Phone_No: $Phone_No, Address: $Address, status: $status}';
+    return 'UserDetailsResponse{Email: $Email, Username: $Username, Name: $Name, Phone_No: $Phone_No, Address: $Address, status: $status, point: $Point}';
   }
 }
