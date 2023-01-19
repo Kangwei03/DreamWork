@@ -40,6 +40,8 @@ class _PaymentState extends State<Payment> {
   //Default drop down value is nothing.
   String? dropDownValue;
 
+  String method = 'Pick Up';
+
   //The value in the drop down box.
   var items = [
     'Public Bank',
@@ -57,6 +59,11 @@ class _PaymentState extends State<Payment> {
   double total = 0;
 
   void initView() async {
+    calculatePrice();
+  }
+
+  void calculatePrice() {
+    checkOutList.clear();
     checkOutList.addAll(widget.checkoutList);
     double totalSub = 0;
 
@@ -68,7 +75,7 @@ class _PaymentState extends State<Payment> {
 
     setState(() {
       totalPrice = totalSub;
-      total = totalSub + 4;
+      total = totalSub + (method == 'Delivery' ? 4 : 0);
     });
   }
 
@@ -102,7 +109,7 @@ class _PaymentState extends State<Payment> {
                     flex: 1,
                     child: Container(
                       padding: EdgeInsets.fromLTRB(0, 0, 15, 0),
-                      child: Text("RM " + checkOut.price.toString(),
+                      child: Text("RM " + checkOut.price.toStringAsFixed(2),
                           textAlign: TextAlign.end,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
@@ -172,6 +179,42 @@ class _PaymentState extends State<Payment> {
                     Text("Select Payment Method For Further Payment."),
                     SizedBox(height: 20),
                     Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: EdgeInsets.fromLTRB(20,0,10,0),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 10,
+                              child: RadioListTile(
+                                  title: Text("Pick Up"),
+                                  value: "Pick Up",
+                                  groupValue: method,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      method = value.toString();
+                                      calculatePrice();
+                                    });
+                                  }
+                              ),
+                            ),
+                            Expanded(
+                              flex: 9,
+                              child: RadioListTile(
+                                  title: Text("Delivery"),
+                                  value: "Delivery",
+                                  groupValue: method,
+                                  onChanged: (value){
+                                    setState(() {
+                                      method = value.toString();
+                                      calculatePrice();
+                                    });
+                                  }
+                              ),
+                            )
+                          ],
+                        )
+                    ),
+                    Container(
                       padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
                       child: Card(
                           elevation: 15,
@@ -188,7 +231,7 @@ class _PaymentState extends State<Payment> {
                                   child: Row(
                                     children: [
                                       Expanded(
-                                        flex: 3,
+                                        flex: 4,
                                         child: Container(
                                           padding:
                                               EdgeInsets.fromLTRB(10, 10, 0, 0),
@@ -200,11 +243,11 @@ class _PaymentState extends State<Payment> {
                                         ),
                                       ),
                                       Expanded(
-                                        flex: 1,
+                                        flex: 2,
                                         child: Container(
                                             padding: EdgeInsets.fromLTRB(
                                                 0, 0, 15, 0),
-                                            child: Text("RM " + totalPrice.toString(),
+                                            child: Text("RM " + totalPrice.toStringAsFixed(2),
                                                 textAlign: TextAlign.end,
                                                 style: TextStyle(
                                                   fontSize: 13,
@@ -213,36 +256,70 @@ class _PaymentState extends State<Payment> {
                                       )
                                     ],
                                   )),
-                              Container(
-                                  width: double.infinity,
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 3,
-                                        child: Container(
-                                          padding:
-                                              EdgeInsets.fromLTRB(10, 10, 0, 5),
-                                          child: Text("Delivery Fees : ",
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.bold,
-                                              )),
+                              if(method ==  "Delivery")
+                                Container(
+                                    width: double.infinity,
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 3,
+                                          child: Container(
+                                            padding:
+                                            EdgeInsets.fromLTRB(10, 10, 0, 5),
+                                            child: Text("Delivery Fees : ",
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                )),
+                                          ),
                                         ),
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: Container(
-                                            padding: EdgeInsets.fromLTRB(
-                                                0, 0, 15, 0),
-                                            child: Text("RM 4.0",
-                                                textAlign: TextAlign.end,
+                                        Expanded(
+                                          flex: 1,
+                                          child: Container(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  0, 0, 15, 0),
+                                              child: Text("RM 4.00",
+                                                  textAlign: TextAlign.end,
+                                                  style: TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.bold,
+                                                  ))),
+                                        )
+                                      ],
+                                    )),
+
+                              if(method == "Pick Up")
+                                Container(
+                                    width: double.infinity,
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 3,
+                                          child: Container(
+                                            padding:
+                                            EdgeInsets.fromLTRB(10, 10, 0, 5),
+                                            child: Text("Delivery Fees : ",
                                                 style: TextStyle(
-                                                  fontSize: 13,
+                                                  fontSize: 15,
                                                   fontWeight: FontWeight.bold,
-                                                ))),
-                                      )
-                                    ],
-                                  )),
+                                                )),
+                                          ),
+                                        ),
+                                        Expanded(
+                                          flex: 1,
+                                          child: Container(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  0, 0, 15, 0),
+                                              child: Text("RM 0.00",
+                                                  textAlign: TextAlign.end,
+                                                  style: TextStyle(
+                                                    fontSize: 13,
+                                                    fontWeight: FontWeight.bold,
+                                                  ))),
+                                        )
+                                      ],
+                                    )),
+
                               Row(
                                 children: [
                                   Expanded(

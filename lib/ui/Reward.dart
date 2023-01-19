@@ -32,11 +32,11 @@ class _RewardState extends State<Reward> {
   RewardsRepository rewardsRepository = RewardsRepository();
   UserRepository userRepository = UserRepository();
 
+
   @override
   void initState() {
     super.initState();
     initView();
-    print(PointsList);
   }
 
   void initView() async {

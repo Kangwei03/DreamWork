@@ -1,5 +1,5 @@
+import 'package:dreamwork/repository/RewardsRepository.dart';
 import 'package:dreamwork/repository/UserRepository.dart';
-import 'package:dreamwork/response/RegisterResponse.dart';
 import 'package:dreamwork/response/RewardsResponse.dart';
 import 'package:dreamwork/response/UserDetailsResponse.dart';
 import 'package:dreamwork/util/Widgets.dart';
@@ -21,6 +21,8 @@ class _UserDetailsState extends State<UserDetails> {
   final txtAddressController = TextEditingController();
 
   UserRepository userRepository = UserRepository();
+  RewardsRepository rewardsRepository = RewardsRepository();
+
   bool isLoading = false;
 
   //declare variable
@@ -74,7 +76,7 @@ class _UserDetailsState extends State<UserDetails> {
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children: const [
                 Text("Dream Work",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
@@ -194,7 +196,55 @@ class _UserDetailsState extends State<UserDetails> {
                   width: 100,
                   height: 50,
                   child: TextButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      setState(() {
+                        isLoading = true;
+                      });
+
+                      final payload ={
+                        'name': txtUserNameController.text,
+                        'email': txtEmailController.text,
+                        'phone_no': txtPhoneNumberController.text,
+                        'address': txtAddressController.text,
+                      };
+                      userRepository
+                          .updateProfile(payload)
+                          .then((value) {
+                        showDialog(
+                          context: context,
+                          builder: (ctx) => AlertDialog(
+                            title: Text("Information Changed"),
+                            content: Text(
+                                "Your Profile Information Has Been Changed."),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(ctx).pop();
+                                },
+                                child: Container(
+                                  color: Colors.black,
+                                  padding:
+                                  const EdgeInsets.all(
+                                      14),
+                                  child: Text("OK",
+                                      style: TextStyle(
+                                          color: Colors
+                                              .white)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }).onError((error, stackTrace) {
+                        showErrorDialog(
+                            context, error.toString());
+                      }).whenComplete(() {
+                        setState(() {
+                          isLoading = false;
+                        });
+                      });
+                      ;
+                    },
                     child: Text("Save",
                         style: TextStyle(
                             color: Colors.black

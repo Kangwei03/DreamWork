@@ -29,6 +29,7 @@ class _OrderItemState extends State<OrderItem> {
   static const IconData shopping_cart =
       IconData(0xe59c, fontFamily: 'MaterialIcons');
   int _itemCount = 0;
+  bool isLoading = false;
 
   List<AddToCart> addToCartList = [];
 
@@ -155,9 +156,8 @@ class _OrderItemState extends State<OrderItem> {
                                   child: TextButton(
                                     onPressed: () {},
                                     child: Text(
-                                        "RM " +
-                                            widget.product.price
-                                                .toStringAsFixed(2),
+                                        "RM ${widget.product.price
+                                                .toStringAsFixed(2)}",
                                         style: TextStyle(
                                             color: Colors.black, fontSize: 10)),
                                   ),
@@ -209,7 +209,7 @@ class _OrderItemState extends State<OrderItem> {
                                     'id': widget.product.id,
                                     'quantity': _itemCount,
                                   };
-                                  print(payload);
+
                                   Future.delayed(Duration(seconds: 1))
                                       .then((value) {
                                     widget.setLoader(false);

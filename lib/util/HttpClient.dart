@@ -80,8 +80,11 @@ class HttpClient{
       });
 
       print('When post ${response.body}');
+      print(jsonDecode(response.body)['message']);
 
       final statusCode = response.statusCode;
+
+      print(statusCode);
 
       if (statusCode == 200 || statusCode == 201) {
         if (response.body.isEmpty) {

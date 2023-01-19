@@ -12,4 +12,5 @@ class Urls {
   static const rewardsHistory = "/api/get-status";
   static const claimRewards = "/api/reward/history";
   static const getCart = "/api/get-cart";
+  static const updateProfile = "/api/update-user";
 }

@@ -2,6 +2,7 @@ import 'package:dreamwork/Constant.dart';
 import 'package:dreamwork/response/BodyMeasurementResponse.dart';
 import 'package:dreamwork/response/ProductResponse.dart';
 import 'package:dreamwork/response/RegisterResponse.dart';
+import 'package:dreamwork/response/RewardsClaimResponse.dart';
 import 'package:dreamwork/response/UserDetailsResponse.dart';
 import 'package:dreamwork/response/UserLoginResponse.dart';
 import 'package:dreamwork/util/HttpClient.dart';
@@ -94,6 +95,22 @@ class UserRepository{
     List<dynamic> resultData = result['Body measurement'];
 
     return resultData.map((value) => BodyMeasurementResponse.fromJson(value)).toList();
+  }
+
+  Future<RewardsClaimResponse> updateProfile(Map<String, dynamic> payload) async{
+    final header = {
+      "Authorization": "Bearer ${Constant.userToken}"
+    };
+
+    print(header);
+
+    final Map<String,dynamic> result = await _httpClient.postRequest(Urls.updateProfile, payload, header: header);
+
+    if(result.isEmpty){
+      throw Exception('Empty data from API');
+    }
+
+    return RewardsClaimResponse.fromJson(result);
   }
 
 
